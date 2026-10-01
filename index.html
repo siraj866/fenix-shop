@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fenix Shop | Store</title>
+    <title>FenixMC | Store</title>
     <style>
         * {
             margin: 0;
@@ -44,7 +44,7 @@
             border-bottom: 1px solid #1f2336;
         }
         .logo-img {
-            max-width: 180px;
+            max-width: 160px;
             height: auto;
             margin-bottom: 15px;
             filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.4));
@@ -139,15 +139,15 @@
 
     <header>
         <div style="font-weight: bold; color: #a855f7; font-size: 18px;">FenixMC</div>
-        <div class="login-box" onclick="alert('Login feature coming soon!')">
-            <span>👤 Guest</span>
-            <b>CLICK TO LOGIN</b>
+        <div class="login-box" onclick="loginUser()">
+            <span id="player-display">👤 Guest</span>
+            <b id="login-text">CLICK TO LOGIN</b>
         </div>
     </header>
 
     <div class="hero-section">
-        <!-- Aapka Purple FM Logo -->
-        <img src="1000143983.png" alt="FenixMC Logo" class="logo-img">
+        <!-- Logo image file name -->
+        <img src="1000143983.png" alt="FenixMC Logo" class="logo-img" onerror="this.style.display='none'">
         <div class="stats-row">
             <div class="stat-badge">⚡ 2,899 Online</div>
             <div class="stat-badge">🔥 297</div>
@@ -169,7 +169,7 @@
                     <h4>GOD Rank (+3600 Coins)</h4>
                     <div class="price">27.00 USD</div>
                 </div>
-                <button class="cart-btn">Buy</button>
+                <button class="cart-btn" onclick="checkLogin('GOD Rank')">Buy</button>
             </div>
 
             <div class="product-card yellow">
@@ -177,7 +177,7 @@
                     <h4>15600 Coins (LIFESTEAL)</h4>
                     <div class="price">12.20 USD</div>
                 </div>
-                <button class="cart-btn" style="background: #eab308;">Buy</button>
+                <button class="cart-btn" style="background: #eab308;" onclick="checkLogin('15600 Coins')">Buy</button>
             </div>
 
             <div class="product-card blue">
@@ -185,10 +185,34 @@
                     <h4>Supreme Rank (+3200 Coins)</h4>
                     <div class="price">22.00 USD</div>
                 </div>
-                <button class="cart-btn" style="background: #3b82f6;">Buy</button>
+                <button class="cart-btn" style="background: #3b82f6;" onclick="checkLogin('Supreme Rank')">Buy</button>
             </div>
         </div>
     </div>
 
+    <script>
+        let playerName = "";
+
+        function loginUser() {
+            let name = prompt("Enter your Minecraft In-Game Name (Username):");
+            if (name && name.trim() !== "") {
+                playerName = name.trim();
+                document.getElementById("player-display").innerText = "👤 " + playerName;
+                document.getElementById("login-text").innerText = "LOGGED IN";
+                alert("Successfully logged in as " + playerName + "!");
+            }
+        }
+
+        function checkLogin(item) {
+            if (playerName === "") {
+                alert("Please click on 'CLICK TO LOGIN' and enter your Minecraft username first!");
+                loginUser();
+            } else {
+                alert(item + " added to cart for player: " + playerName);
+            }
+        }
+    </script>
+
 </body>
 </html>
+
