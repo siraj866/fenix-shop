@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenix Shop | Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f111a;
+            color: #ffffff;
+        }
+        header {
+            background: #161925;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ff4757;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+        .user-box {
+            background: #1f2336;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #2f3542;
+        }
+        .container {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+        sidebar {
+            width: 250px;
+            background: #161925;
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+        sidebar h3 {
+            margin-bottom: 15px;
+            color: #a4b0be;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        sidebar ul {
+            list-style: none;
+        }
+        sidebar ul li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #1f2336;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        sidebar ul li:hover, sidebar ul li.active {
+            background: #ff4757;
+            color: white;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .banner {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #161925;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #2f3542;
+            transition: 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff4757;
+        }
+        .product-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product-card .price {
+            color: #2ed573;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .buy-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .buy-btn:hover {
+            background: #ff6b81;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🔥 FENIX SHOP</div>
+        <div class="user-box">
+            <span>Player: <b>Guest</b></span>
+        </div>
+    </header>
+
+    <div class="container">
+        <sidebar>
+            <h3>Categories</h3>
+            <ul>
+                <li class="active">Ranks</li>
+                <li>Coins & Currencies</li>
+                <li>Crates & Keys</li>
+                <li>Bundles</li>
+            </ul>
+        </sidebar>
+
+        <div class="main-content">
+            <div class="banner">
+                <h1>Welcome to FenixMC Store</h1>
+                <p>Unlock the best ranks and items to rule the server!</p>
+            </div>
+
+            <h2 style="margin-bottom: 20px;">Featured Packages</h2>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <h4>GOD Rank</h4>
+                    <div class="price">$27.00 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>Supreme Rank</h4>
+                    <div class="price">$22.00 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>15,600 Coins</h4>
+                    <div class="price">$12.20 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>Deadliest Rank</h4>
+                    <div class="price">$6.70 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenix Shop | Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f111a;
+            color: #ffffff;
+        }
+        header {
+            background: #161925;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ff4757;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+        .user-box {
+            background: #1f2336;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #2f3542;
+        }
+        .container {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+        sidebar {
+            width: 250px;
+            background: #161925;
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+        sidebar h3 {
+            margin-bottom: 15px;
+            color: #a4b0be;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        sidebar ul {
+            list-style: none;
+        }
+        sidebar ul li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #1f2336;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        sidebar ul li:hover, sidebar ul li.active {
+            background: #ff4757;
+            color: white;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .banner {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #161925;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #2f3542;
+            transition: 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff4757;
+        }
+        .product-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product-card .price {
+            color: #2ed573;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .buy-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .buy-btn:hover {
+            background: #ff6b81;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🔥 FENIX SHOP</div>
+        <div class="user-box">
+            <span>Player: <b>Guest</b></span>
+        </div>
+    </header>
+
+    <div class="container">
+        <sidebar>
+            <h3>Categories</h3>
+            <ul>
+                <li class="active">Ranks</li>
+                <li>Coins & Currencies</li>
+                <li>Crates & Keys</li>
+                <li>Bundles</li>
+            </ul>
+        </sidebar>
+
+        <div class="main-content">
+            <div class="banner">
+                <h1>Welcome to FenixMC Store</h1>
+                <p>Unlock the best ranks and items to rule the server!</p>
+            </div>
+
+            <h2 style="margin-bottom: 20px;">Featured Packages</h2>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <h4>GOD Rank</h4>
+                    <div class="price">$27.00 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>Supreme Rank</h4>
+                    <div class="price">$22.00 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>15,600 Coins</h4>
+                    <div class="price">$12.20 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <h4>Deadliest Rank</h4>
+                    <div class="price">$6.70 USD</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
