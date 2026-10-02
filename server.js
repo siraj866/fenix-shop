@@ -429,19 +429,9 @@ app.post("/api/order", async (req, res) => {
    FRONTEND
 ========================= */
 
-app.use(
-  express.static(
-    path.join(__dirname, "public")
-  )
-);
-
 app.get("*", (req, res) => {
   res.sendFile(
-    path.join(
-      __dirname,
-      "public",
-      "index.html"
-    )
+    path.join(__dirname, "index.html")
   );
 });
 
