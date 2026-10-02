@@ -12,68 +12,72 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0f111a;
+            background-color: #12141c;
             color: #ffffff;
         }
         header {
-            background: #161925;
-            padding: 15px 20px;
+            background: #181b26;
+            padding: 12px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            border-bottom: 2px solid #a855f7;
+            border-bottom: 2px solid #252a3a;
         }
         .login-box {
-            background: #1f2336;
-            padding: 8px 15px;
-            border-radius: 8px;
-            border: 1px solid #374151;
-            font-size: 14px;
+            background: #1e2333;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid #32384e;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .login-box b {
-            color: #c084fc;
+            color: #f3f4f6;
         }
         .hero-section {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(180deg, #161925 0%, #0f111a 100%);
-            border-bottom: 1px solid #1f2336;
+            padding: 25px 20px 15px 20px;
+            background: #12141c;
         }
-        .logo-img {
-            max-width: 160px;
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.4));
+        .logo-title {
+            font-size: 38px;
+            font-weight: 900;
+            color: #ff4757;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+            margin-bottom: 10px;
         }
         .stats-row {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .stat-badge {
-            background: #1f2336;
+            background: #1b1f2e;
             padding: 6px 14px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #fbbf24;
-            border: 1px solid #374151;
+            border: 1px solid #2a3147;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         .category-btn-container {
-            padding: 20px;
+            padding: 15px 20px;
         }
         .category-toggle {
-            background: #1f2336;
-            border: 1px solid #374151;
+            background: #1a1e2d;
+            border: 1px solid #2d354d;
             color: #fbbf24;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -86,7 +90,7 @@
             padding: 0 20px 30px 20px;
         }
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             color: #fbbf24;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -95,42 +99,127 @@
         .products-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         .product-card {
-            background: #161925;
-            border-radius: 10px;
-            padding: 15px 20px;
+            background: #191d2b;
+            border-radius: 8px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #374151;
-            transition: 0.2s;
+            border: 1px solid #2a3147;
         }
-        .product-card:hover {
-            border-color: #a855f7;
-        }
-        .product-card.green { border-left: 5px solid #22c55e; }
-        .product-card.yellow { border-left: 5px solid #eab308; }
-        .product-card.blue { border-left: 5px solid #3b82f6; }
+        .product-card.green { border-left: 4px solid #22c55e; }
+        .product-card.yellow { border-left: 4px solid #eab308; }
+        .product-card.blue { border-left: 4px solid #3b82f6; }
+        .product-card.purple { border-left: 4px solid #a855f7; }
 
         .product-info h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 14px;
+            margin-bottom: 4px;
             color: #ffffff;
         }
         .product-info .price {
             color: #9ca3af;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
-        .cart-btn {
-            background: #22c55e;
+        .buy-btn {
+            background: #8b5cf6;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 6px;
+            font-size: 13px;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Cart & Checkout Section */
+        .cart-section {
+            background: #171b28;
+            border: 1px solid #2a3147;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: none;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #252a3a;
+            padding-bottom: 8px;
+        }
+        .checkout-box {
+            margin-top: 15px;
+            background: #12141c;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .checkbox-label {
+            font-size: 12px;
+            color: #d1d5db;
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .checkout-btn {
+            background: #f59e0b;
+            color: #000;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Modal / Popup design */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #181c2b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 350px;
+            border: 1px solid #2e3650;
+            text-align: center;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            background: #11131c;
+            border: 1px solid #374151;
+            color: white;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .modal-content button {
+            background: #f59e0b;
+            color: black;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
         }
     </style>
@@ -138,19 +227,20 @@
 <body>
 
     <header>
-        <div style="font-weight: bold; color: #a855f7; font-size: 18px;">FenixMC</div>
-        <div class="login-box" onclick="loginUser()">
-            <span id="player-display">👤 Guest</span>
-            <b id="login-text">CLICK TO LOGIN</b>
+        <div class="login-box" onclick="openLoginModal()">
+            <span id="player-avatar">👤</span>
+            <div>
+                <div style="font-size: 10px; color: #9ca3af;" id="guest-label">Guest</div>
+                <b id="login-text">CLICK TO LOGIN</b>
+            </div>
         </div>
     </header>
 
     <div class="hero-section">
-        <!-- Logo image file name -->
-        <img src="1000143983.png" alt="FenixMC Logo" class="logo-img" onerror="this.style.display='none'">
+        <div class="logo-title">FenixMC</div>
         <div class="stats-row">
-            <div class="stat-badge">⚡ 2,899 Online</div>
-            <div class="stat-badge">🔥 297</div>
+            <div class="stat-badge">💬 3,426</div>
+            <div class="stat-badge">🔥 481</div>
         </div>
     </div>
 
@@ -161,6 +251,24 @@
     </div>
 
     <div class="container">
+        <!-- Cart Drawer (Shows up when item is added) -->
+        <div id="cartSection" class="cart-section">
+            <h3 class="section-title" style="margin-bottom: 10px;">Review your cart (1 item)</h3>
+            <div class="cart-item">
+                <span id="cart-item-name">GOD Rank (+3600 Coins)</span>
+                <span id="cart-item-price" style="font-weight:bold; color:#fbbf24;">27.00 USD</span>
+            </div>
+            
+            <div class="checkout-box">
+                <h4 style="font-size: 13px; color: #fbbf24; margin-bottom: 8px;">User Agreement</h4>
+                <label class="checkbox-label"><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this purchase.</label>
+                <label class="checkbox-label"><input type="checkbox" id="cb2"> I confirm that I am either over 16 or have guardian permission.</label>
+                <label class="checkbox-label"><input type="checkbox" id="cb3"> I verify that the Minecraft account belongs to me.</label>
+                
+                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+
         <h3 class="section-title">Featured Packages</h3>
         
         <div class="products-list">
@@ -169,7 +277,7 @@
                     <h4>GOD Rank (+3600 Coins)</h4>
                     <div class="price">27.00 USD</div>
                 </div>
-                <button class="cart-btn" onclick="checkLogin('GOD Rank')">Buy</button>
+                <button class="buy-btn" onclick="addToCart('GOD Rank (+3600 Coins)', '27.00 USD')">Add</button>
             </div>
 
             <div class="product-card yellow">
@@ -177,38 +285,84 @@
                     <h4>15600 Coins (LIFESTEAL)</h4>
                     <div class="price">12.20 USD</div>
                 </div>
-                <button class="cart-btn" style="background: #eab308;" onclick="checkLogin('15600 Coins')">Buy</button>
+                <button class="buy-btn" style="background: #eab308; color:black;" onclick="addToCart('15600 Coins (LIFESTEAL)', '12.20 USD')">Add</button>
             </div>
 
             <div class="product-card blue">
                 <div class="product-info">
+                    <h4>Deadliest Rank (+1000 Coins)</h4>
+                    <div class="price">6.70 USD</div>
+                </div>
+                <button class="buy-btn" style="background: #3b82f6;" onclick="addToCart('Deadliest Rank (+1000 Coins)', '6.70 USD')">Add</button>
+            </div>
+
+            <div class="product-card purple">
+                <div class="product-info">
                     <h4>Supreme Rank (+3200 Coins)</h4>
                     <div class="price">22.00 USD</div>
                 </div>
-                <button class="cart-btn" style="background: #3b82f6;" onclick="checkLogin('Supreme Rank')">Buy</button>
+                <button class="buy-btn" onclick="addToCart('Supreme Rank (+3200 Coins)', '22.00 USD')">Add</button>
             </div>
         </div>
     </div>
 
-    <script>
-        let playerName = "";
+    <!-- Login Modal Box -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: #fbbf24; margin-bottom: 5px;">Please enter your username to continue</h3>
+            <p style="font-size: 12px; color: #9ca3af;">Usernames can't contain spaces.</p>
+            <input type="text" id="usernameInput" placeholder="Enter your in-game name...">
+            <button onclick="saveUsername()">CONTINUE</button>
+            <button onclick="closeLoginModal()" style="background: transparent; color: #9ca3af; margin-top: 10px;">Cancel</button>
+        </div>
+    </div>
 
-        function loginUser() {
-            let name = prompt("Enter your Minecraft In-Game Name (Username):");
-            if (name && name.trim() !== "") {
-                playerName = name.trim();
-                document.getElementById("player-display").innerText = "👤 " + playerName;
-                document.getElementById("login-text").innerText = "LOGGED IN";
-                alert("Successfully logged in as " + playerName + "!");
+    <script>
+        let loggedUser = "";
+
+        function openLoginModal() {
+            document.getElementById("loginModal").style.display = "flex";
+        }
+
+        function closeLoginModal() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        function saveUsername() {
+            let name = document.getElementById("usernameInput").value;
+            if (name.trim() !== "") {
+                loggedUser = name.trim();
+                document.getElementById("login-text").innerText = loggedUser;
+                document.getElementById("guest-label").innerText = "Shopping as";
+                document.getElementById("player-avatar").innerText = "✅";
+                closeLoginModal();
+            } else {
+                alert("Please enter a valid username.");
             }
         }
 
-        function checkLogin(item) {
-            if (playerName === "") {
-                alert("Please click on 'CLICK TO LOGIN' and enter your Minecraft username first!");
-                loginUser();
+        function addToCart(itemName, itemPrice) {
+            if (loggedUser === "") {
+                alert("Please login with your in-game name first!");
+                openLoginModal();
             } else {
-                alert(item + " added to cart for player: " + playerName);
+                document.getElementById("cart-item-name").innerText = itemName;
+                document.getElementById("cart-item-price").innerText = itemPrice;
+                document.getElementById("cartSection").style.display = "block";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function proceedToCheckout() {
+            let c1 = document.getElementById("cb1").checked;
+            let c2 = document.getElementById("cb2").checked;
+            let c3 = document.getElementById("cb3").checked;
+
+            if (!c1 || !c2 || !c3) {
+                alert("You must tick all boxes before you can continue to checkout.");
+            } else {
+                alert("Redirecting to Tebex Secure Payment Gateway (UPI / Cards / PayPal)...");
+                window.location.href = "https://pay.tebex.io"; // Video jaisa secure checkout redirect
             }
         }
     </script>
