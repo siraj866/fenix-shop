@@ -7,21 +7,22 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: "20kb" }));
-app.disable("x-powered-by");
 
-// ===============================
-// FENIXMC PRODUCTS
-// ===============================
+/* =========================
+   FENIXMC PRODUCTS
+========================= */
 
 const PRODUCTS = {
   fenix_plus_1m: {
     name: "Fenix+ · 1 Month",
     priceUSD: 7.50
   },
+
   fenix_plus_2m: {
     name: "Fenix+ · 2 Months",
     priceUSD: 13.75
   },
+
   fenix_plus_lifetime: {
     name: "Fenix+ · Permanent",
     priceUSD: 31.25
@@ -31,22 +32,27 @@ const PRODUCTS = {
     name: "1400 Coins",
     priceUSD: 0.50
   },
+
   coins_3600: {
     name: "3600 Coins",
     priceUSD: 1.00
   },
+
   coins_7700: {
     name: "7700 Coins",
     priceUSD: 2.25
   },
+
   coins_12560: {
     name: "12560 Coins",
     priceUSD: 4.65
   },
+
   coins_15900: {
     name: "15900 Coins",
     priceUSD: 6.25
   },
+
   coins_18600: {
     name: "18600 Coins",
     priceUSD: 8.75
@@ -56,14 +62,17 @@ const PRODUCTS = {
     name: "Ultimate Rank",
     priceUSD: 8.75
   },
+
   survival_supreme: {
     name: "Supreme Rank",
     priceUSD: 6.25
   },
+
   survival_titan: {
     name: "Titan Rank",
     priceUSD: 5.00
   },
+
   survival_knight: {
     name: "Knight Rank",
     priceUSD: 3.75
@@ -73,27 +82,31 @@ const PRODUCTS = {
     name: "Lord Rank",
     priceUSD: 15.00
   },
+
   lifesteal_boss: {
     name: "Boss Rank",
     priceUSD: 12.50
   },
+
   lifesteal_ace: {
     name: "Ace Rank",
     priceUSD: 10.00
   },
+
   lifesteal_draxen: {
     name: "Draxen Rank",
     priceUSD: 8.15
   },
+
   lifesteal_master: {
     name: "Master Rank",
     priceUSD: 5.00
   }
 };
 
-// ===============================
-// SETTINGS
-// ===============================
+/* =========================
+   CONFIG
+========================= */
 
 const USD_TO_INR = Number(process.env.USD_TO_INR || 83);
 const UPI_ID = process.env.UPI_ID || "";
@@ -101,9 +114,11 @@ const UPI_ID = process.env.UPI_ID || "";
 const orders = new Map();
 const rateLimits = new Map();
 
-// ===============================
-// SECURITY HEADERS
-// ===============================
+app.disable("x-powered-by");
+
+/* =========================
+   SECURITY HEADERS
+========================= */
 
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -116,9 +131,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===============================
-// RATE LIMIT
-// ===============================
+/* =========================
+   RATE LIMIT
+========================= */
 
 function rateLimit(key, max, windowMs) {
   const now = Date.now();
@@ -142,17 +157,17 @@ function rateLimit(key, max, windowMs) {
   return true;
 }
 
-// ===============================
-// USERNAME VALIDATION
-// ===============================
+/* =========================
+   USERNAME VALIDATION
+========================= */
 
 function validUsername(username) {
   return /^[A-Za-z0-9_]{3,16}$/.test(username);
 }
 
-// ===============================
-// DISCORD ORDER NOTIFICATION
-// ===============================
+/* =========================
+   DISCORD ORDER LOG
+========================= */
 
 async function sendDiscordOrder(order) {
   const webhook = process.env.DISCORD_WEBHOOK_URL;
@@ -163,7 +178,6 @@ async function sendDiscordOrder(order) {
 
   const embed = {
     title: "🛒 FenixMC Store Order",
-
     color: 0x8b5cf6,
 
     fields: [
@@ -172,26 +186,31 @@ async function sendDiscordOrder(order) {
         value: order.username,
         inline: true
       },
+
       {
         name: "📦 Product",
         value: order.productName,
         inline: true
       },
+
       {
         name: "💵 Price",
         value: `$${order.priceUSD.toFixed(2)}`,
         inline: true
       },
+
       {
         name: "🇮🇳 INR Amount",
         value: `₹${order.priceINR}`,
         inline: true
       },
+
       {
         name: "🆔 Order ID",
         value: order.orderId,
         inline: true
       },
+
       {
         name: "💳 Payment Status",
         value: "PAYMENT INITIATED — NOT VERIFIED",
@@ -226,9 +245,9 @@ async function sendDiscordOrder(order) {
   }
 }
 
-// ===============================
-// HEALTH CHECK
-// ===============================
+/* =========================
+   HEALTH CHECK
+========================= */
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -237,24 +256,22 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// ===============================
-// PRODUCTS API
-// ===============================
+/* =========================
+   PRODUCTS API
+========================= */
 
 app.get("/api/products", (req, res) => {
   res.json(PRODUCTS);
 });
 
-// ===============================
-// CREATE ORDER
-// ===============================
+/* =========================
+   CREATE ORDER
+========================= */
 
 app.post("/api/order", async (req, res) => {
   try {
     const ip =
-      req.headers["x-forwarded-for"]
-        ?.split(",")[0]
-        ?.trim() ||
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
       req.socket.remoteAddress ||
       "unknown";
 
@@ -266,9 +283,7 @@ app.post("/api/order", async (req, res) => {
       req.body.productId || ""
     ).trim();
 
-    // -------------------------------
-    // IP RATE LIMIT
-    // -------------------------------
+    /* IP RATE LIMIT */
 
     if (!rateLimit(`ip:${ip}`, 5, 60 * 1000)) {
       return res.status(429).json({
@@ -277,9 +292,7 @@ app.post("/api/order", async (req, res) => {
       });
     }
 
-    // -------------------------------
-    // USERNAME VALIDATION
-    // -------------------------------
+    /* USERNAME CHECK */
 
     if (!validUsername(username)) {
       return res.status(400).json({
@@ -288,9 +301,7 @@ app.post("/api/order", async (req, res) => {
       });
     }
 
-    // -------------------------------
-    // PRODUCT VALIDATION
-    // -------------------------------
+    /* PRODUCT CHECK */
 
     const product = PRODUCTS[productId];
 
@@ -300,9 +311,7 @@ app.post("/api/order", async (req, res) => {
       });
     }
 
-    // -------------------------------
-    // USERNAME RATE LIMIT
-    // -------------------------------
+    /* USER RATE LIMIT */
 
     if (
       !rateLimit(
@@ -317,9 +326,7 @@ app.post("/api/order", async (req, res) => {
       });
     }
 
-    // -------------------------------
-    // DUPLICATE ORDER CHECK
-    // -------------------------------
+    /* DUPLICATE ORDER CHECK */
 
     const duplicateKey =
       `${username.toLowerCase()}:${productId}`;
@@ -337,9 +344,7 @@ app.post("/api/order", async (req, res) => {
       }
     }
 
-    // -------------------------------
-    // PAYMENT CONFIG CHECK
-    // -------------------------------
+    /* PAYMENT CONFIG CHECK */
 
     if (!UPI_ID) {
       return res.status(503).json({
@@ -348,9 +353,7 @@ app.post("/api/order", async (req, res) => {
       });
     }
 
-    // -------------------------------
-    // ORDER ID
-    // -------------------------------
+    /* ORDER ID */
 
     const orderId =
       "FM-" +
@@ -363,17 +366,11 @@ app.post("/api/order", async (req, res) => {
         .toString("hex")
         .toUpperCase();
 
-    // -------------------------------
-    // INR PRICE
-    // -------------------------------
+    /* INR PRICE */
 
     const priceINR = Math.round(
       product.priceUSD * USD_TO_INR
     );
-
-    // -------------------------------
-    // ORDER OBJECT
-    // -------------------------------
 
     const order = {
       orderId,
@@ -386,21 +383,13 @@ app.post("/api/order", async (req, res) => {
       createdAt: Date.now()
     };
 
-    // -------------------------------
-    // DISCORD NOTIFICATION
-    // -------------------------------
+    /* SEND ORDER TO DISCORD */
 
     await sendDiscordOrder(order);
 
-    // -------------------------------
-    // SAVE ORDER
-    // -------------------------------
-
     orders.set(orderId, order);
 
-    // -------------------------------
-    // UPI PAYMENT URL
-    // -------------------------------
+    /* UPI PAYMENT URL */
 
     const upiUrl =
       "upi://pay?" +
@@ -412,9 +401,7 @@ app.post("/api/order", async (req, res) => {
         tn: `FenixMC Order ${orderId}`
       }).toString();
 
-    // -------------------------------
-    // RESPONSE
-    // -------------------------------
+    /* RESPONSE */
 
     return res.json({
       success: true,
@@ -425,6 +412,7 @@ app.post("/api/order", async (req, res) => {
     });
 
   } catch (error) {
+
     console.error(
       "ORDER ERROR:",
       error
@@ -437,9 +425,9 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
-// ===============================
-// FRONTEND
-// ===============================
+/* =========================
+   FRONTEND
+========================= */
 
 app.use(
   express.static(
@@ -457,9 +445,9 @@ app.get("*", (req, res) => {
   );
 });
 
-// ===============================
-// START SERVER
-// ===============================
+/* =========================
+   START SERVER
+========================= */
 
 app.listen(
   PORT,
