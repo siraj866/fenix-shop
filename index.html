@@ -54,7 +54,7 @@ button{font:inherit;cursor:pointer}
 .checkbox-container { margin: 12px 0; text-align: left; background: #1b191e; padding: 10px; border-radius: 6px; }
 .checkbox-container label { display: flex; gap: 8px; font-size: 13px; color: #ddd; margin-bottom: 6px; cursor: pointer; align-items: flex-start; }
 .dialog input[type="text"] { width: 100%; padding: 10px; margin: 12px 0; background: #17161b; border: 1px solid #514b55; color: white; border-radius: 5px; }
-.pay-btn { background: #22c55e; color: black; width: 100%; padding: 12px; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 8px; font-size: 15px; }
+.pay-btn { background: #22c55e; color: black; width: 100%; padding: 12px; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 8px; font-size: 15px; text-decoration: none; display: block; text-align: center;}
 @media(min-width:650px){
 .products{grid-template-columns:1fr 1fr}
 .product{min-height:160px}
@@ -83,7 +83,7 @@ button{font:inherit;cursor:pointer}
   <div class="menu" id="menu" hidden>
    <button class="menu-item" data-group="Fenix+"><span class="menu-icon">🔥</span><span>Fenix+ Membership</span></button>
    <button class="menu-item" data-group="Coins"><span class="menu-icon">🪙</span><span>Coins Store</span></button>
-   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️</span><span>Lifesteal Ranks</span></button>
+   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️️</span><span>Lifesteal Ranks</span></button>
    <button class="menu-item" data-group="Survival Ranks"><span class="menu-icon">🛡️</span><span>Survival Ranks</span></button>
   </div>
  </section>
@@ -91,7 +91,7 @@ button{font:inherit;cursor:pointer}
   <h2 class="section-title" id="title">FEATURED PACKAGES</h2>
   <div class="products" id="products"></div>
  </section>
- <div class="notice">FenixMC Store · Secure Checkout & Instant Delivery</div>
+ <div class="notice">FenixMC Store · Direct UPI Payment & Live Discord Logging</div>
 </main>
 
 <!-- Main Action Modal (Product Details / Agreements / Checkout) -->
@@ -105,13 +105,12 @@ button{font:inherit;cursor:pointer}
   
   <div id="checkoutStep" style="display:none;">
    <div class="checkbox-container">
-    <label><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this purchase.</label>
+    <label><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this store.</label>
     <label><input type="checkbox" id="cb2"> I confirm that I am either over 16 or have guardian permission.</label>
     <label><input type="checkbox" id="cb3"> I verify that the Minecraft account belongs to me.</label>
    </div>
    <h4 style="color:var(--orange); margin-bottom:6px; font-size:14px;">Select Payment Gateway:</h4>
-   <button class="pay-btn" onclick="completePayment('UPI / Google Pay / PhonePe')">⚡ Pay via UPI / Google Pay</button>
-   <button class="pay-btn" style="background:#3b82f6; color:white;" onclick="completePayment('Credit / Debit Card')">💳 Pay via Credit / Debit Card</button>
+   <a id="upiPayLink" href="#" class="pay-btn" onclick="triggerDiscordOrder()" target="_blank">⚡ Pay via GPay / PhonePe / Paytm (Direct UPI)</a>
   </div>
 
   <button class="primary" id="buy">Continue to checkout</button>
@@ -134,18 +133,29 @@ button{font:inherit;cursor:pointer}
 const item=(name,price,icon,color,description)=>({name,price,icon,color,description});
 
 const fenixPlus=[
- item('Fenix+ · 1 Month','15.00 USD','🔥','orange','Fenix+ membership for 1 month with exclusive perks.'),
- item('Fenix+ · 3 Months','40.00 USD','🔥','orange','Fenix+ membership for 3 months with special tag.'),
- item('Fenix+ · 6 Months','75.00 USD','🔥','orange','Fenix+ membership for 6 months (Best Value).')
+ item('Fenix+ · 1 Month','₹600','🔥','orange','Fenix+ membership for 1 month with exclusive perks.'),
+ item('Fenix+ · 2 Months','₹1100','🔥','orange','Fenix+ membership for 2 months with special tag.'),
+ item('Fenix+ · Permanent','₹2500','🔥','orange','Permanent Fenix+ VIP membership (Lifetime access).')
 ];
 
 const coinsStore=[
  ['1400 Coins','₹40','🪙'],['3600 Coins','₹80','🪙'],['7700 Coins','₹180','🪙'],['12560 Coins','₹370','🪙'],['15900 Coins','₹500','🪙'],['18600 Coins','₹700','🪙']
 ].map(([n,p,i])=>item(n,p,i,'gold',p+' / '+n+'. Use /coinshop in-game to spend coins.'));
 
-const survival=['Ultimate','Supreme','Titan','Knight'].map((n,i)=>item(n,'25.00 USD',['👑','🔥','⚔️','🛡️️'][i],i===1?'orange':'red',n+' rank for Survival. Full server perks included.'));
+const survival=[
+ item('Ultimate Rank','₹700','👑','orange','Ultimate rank for Survival. Full server perks included.'),
+ item('Supreme Rank','₹500','🔥','orange','Supreme rank for Survival. High-tier perks included.'),
+ item('Titan Rank','₹400','⚔️','red','Titan rank for Survival server.'),
+ item('Knight Rank','₹300','🛡️️','red','Knight rank for Survival server.')
+];
 
-const lifesteal=['Lord','Boss','Ace','Legendary','Master'].map((n,i)=>item(n,n==='Lord'?'35.00 USD':'30.00 USD',['👑','💀','🔥','🏆','⚡'][i],'red',n+' rank for Lifesteal server. Special kits and permissions.'));
+const lifesteal=[
+ item('Lord Rank','₹1200','👑','red','Lord rank for Lifesteal server. Ultimate kits & permissions.'),
+ item('Boss Rank','₹1000','💀','red','Boss rank for Lifesteal server.'),
+ item('Ace Rank','₹800','🔥','red','Ace rank for Lifesteal server.'),
+ item('Draxen Rank','₹650','🏆','red','Draxen rank for Lifesteal server.'),
+ item('Master Rank','₹400','⚡','red','Master rank for Lifesteal server.')
+];
 
 const groups={
  'Fenix+':fenixPlus,
@@ -161,7 +171,7 @@ const $=id=>document.getElementById(id);
 function render(group='Featured'){
  $('title').textContent=group==='Featured'?'FEATURED PACKAGES':group.toUpperCase();
  let items=group==='Featured'?
- [lifesteal[0],item('15600 Coins (LIFESTEAL)','12.20 USD','🪙','gold','15600 Coins for Lifesteal server.'),item('Ultimate Rank (+2500 Coins)','28.00 USD','⚔️','red','Ultimate rank package.'),item('Supreme Rank (+3800 Coins)','32.00 USD','🔥','orange','Supreme rank package.')]:
+ [lifesteal[0],survival[0],item('15600 Coins (LIFESTEAL)','₹500','🪙','gold','15600 Coins for Lifesteal server.'),item('Supreme Rank (+3800 Coins)','₹500','🔥','orange','Supreme rank package.')]:
  groups[group];
  
  $('products').innerHTML=items.map((it,i)=>`
@@ -209,7 +219,6 @@ $('menu').addEventListener('click',e=>{
 $('close').addEventListener('click',close);$('back').addEventListener('click',close);
 $('modal').addEventListener('click',e=>{if(e.target===$('modal'))close()});
 
-// Login button triggers
 $('profileBtn').addEventListener('click',()=>$('loginModal').classList.add('show'));
 $('closeLogin').addEventListener('click',()=>$('loginModal').classList.remove('show'));
 
@@ -225,12 +234,24 @@ $('saveLoginBtn').addEventListener('click',()=>{
  }
 });
 
-// Buy flow -> Show 3 checkboxes & Payment gateways
 $('buy').addEventListener('click',()=>{
+ let c1 = $('cb1').checked;
+ let c2 = $('cb2').checked;
+ let c3 = $('cb3').checked;
+
+ // Show checkout step and build dynamic UPI intent link
  $('checkoutStep').style.display='block';$('buy').style.display='none';
+
+ // Clean price string (e.g., '₹700' -> '700')
+ let rawNum = selected.price.replace(/[^0-9.]/g, '');
+ if(!rawNum) rawNum = "100";
+
+ // UPI Intent Link with exact amount and store name
+ let upiLink = `upi://pay?pa=fenixmc@okhdfcbank&pn=FenixMC%20Store&am=${rawNum}&cu=INR&tn=Order%20for%20${loggedUser}%20-%20${encodeURIComponent(selected.name)}`;
+ $('upiPayLink').setAttribute('href', upiLink);
 });
 
-function completePayment(method){
+function triggerDiscordOrder(){
  let c1 = $('cb1').checked;
  let c2 = $('cb2').checked;
  let c3 = $('cb3').checked;
@@ -239,8 +260,31 @@ function completePayment(method){
   alert("You must tick all 3 agreement checkboxes before proceeding to payment!");
   return;
  }
- alert("Order confirmed for " + loggedUser + "! Redirecting to secure gateway via " + method + "...");
- location.reload();
+
+ const webhookURL = "https://discord.com/api/webhooks/1555467923018227712/afScYh5i-xPXU1jRTt27EdV94RVLqF0FQFLoyiQIkVO1YslUW7AY-Qt9fmg7OYJuIl75"; 
+
+ const payload = {
+  embeds: [{
+   title: "🛍️ NEW STORE ORDER & PAYMENT INITIATED!",
+   color: 16753165,
+   fields: [
+    { name: "👤 Minecraft Username", value: loggedUser, inline: true },
+    { name: "🎁 Purchased Item", value: selected.name, inline: true },
+    { name: "💰 Exact Price", value: selected.price, inline: true },
+    { name: "⚡ Payment Method", value: "Direct UPI App (GPay/PhonePe/Paytm)", inline: true },
+    { name: "📅 Date & Time", value: new Date().toLocaleString(), inline: false }
+   ],
+   footer: { text: "FenixMC Store Automated Logging System" }
+  ]}
+ };
+
+ fetch(webhookURL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload)
+ }).catch(err => console.log("Webhook error:", err));
+
+ alert("Opening your UPI app with exact amount " + selected.price + "! Order details sent to Discord.");
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){close(); $('loginModal').classList.remove('show');}});
