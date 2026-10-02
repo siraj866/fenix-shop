@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +51,10 @@ button{font:inherit;cursor:pointer}
 .primary{background:var(--orange);border:0;color:#211b16}
 .secondary{background:#393640;border:1px solid #514c58;color:white}
 .notice{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+.checkbox-container { margin: 12px 0; text-align: left; background: #1b191e; padding: 10px; border-radius: 6px; }
+.checkbox-container label { display: flex; gap: 8px; font-size: 13px; color: #ddd; margin-bottom: 6px; cursor: pointer; align-items: flex-start; }
+.dialog input[type="text"] { width: 100%; padding: 10px; margin: 12px 0; background: #17161b; border: 1px solid #514b55; color: white; border-radius: 5px; }
+.pay-btn { background: #22c55e; color: black; width: 100%; padding: 12px; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 8px; font-size: 15px; }
 @media(min-width:650px){
 .products{grid-template-columns:1fr 1fr}
 .product{min-height:160px}
@@ -61,7 +64,7 @@ button{font:inherit;cursor:pointer}
 </head>
 <body>
 <header class="hero">
- <div class="topbar"><button id="profileBtn">👤 My Profile</button></div>
+ <div class="topbar"><button id="profileBtn">👤 Click to Login</button></div>
  <div class="logo">
   <div class="mascot">🐉</div>
   <div class="brand">FenixMC</div>
@@ -78,7 +81,8 @@ button{font:inherit;cursor:pointer}
    <span>SELECT A CATEGORY</span>
   </button>
   <div class="menu" id="menu" hidden>
-   <button class="menu-item" data-group="Fenix+ & Coins"><span class="menu-icon">🔥</span><span>Fenix+ &amp; Coins</span></button>
+   <button class="menu-item" data-group="Fenix+"><span class="menu-icon">🔥</span><span>Fenix+ Membership</span></button>
+   <button class="menu-item" data-group="Coins"><span class="menu-icon">🪙</span><span>Coins Store</span></button>
    <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️</span><span>Lifesteal Ranks</span></button>
    <button class="menu-item" data-group="Survival Ranks"><span class="menu-icon">🛡️</span><span>Survival Ranks</span></button>
   </div>
@@ -87,63 +91,101 @@ button{font:inherit;cursor:pointer}
   <h2 class="section-title" id="title">FEATURED PACKAGES</h2>
   <div class="products" id="products"></div>
  </section>
- <div class="notice">FenixMC Store · Package details · Payment links can be connected later</div>
+ <div class="notice">FenixMC Store · Secure Checkout & Instant Delivery</div>
 </main>
+
+<!-- Main Action Modal (Product Details / Agreements / Checkout) -->
 <div class="modal" id="modal" role="dialog" aria-modal="true">
  <div class="dialog">
   <button class="close" id="close">×</button>
   <div id="dIcon" style="font-size:50px">🎁</div>
   <h2 id="dName">Package</h2>
-  <div id="dPrice" style="font-weight:bold;font-size:20px"></div>
-  <p id="dDesc">Package details will be added later.</p>
-  <button class="primary" id="buy">Continue to payment</button>
+  <div id="dPrice" style="font-weight:bold;font-size:20px;color:var(--gold)"></div>
+  <p id="dDesc" style="margin-top:6px;">Package details.</p>
+  
+  <div id="checkoutStep" style="display:none;">
+   <div class="checkbox-container">
+    <label><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this purchase.</label>
+    <label><input type="checkbox" id="cb2"> I confirm that I am either over 16 or have guardian permission.</label>
+    <label><input type="checkbox" id="cb3"> I verify that the Minecraft account belongs to me.</label>
+   </div>
+   <h4 style="color:var(--orange); margin-bottom:6px; font-size:14px;">Select Payment Gateway:</h4>
+   <button class="pay-btn" onclick="completePayment('UPI / Google Pay / PhonePe')">⚡ Pay via UPI / Google Pay</button>
+   <button class="pay-btn" style="background:#3b82f6; color:white;" onclick="completePayment('Credit / Debit Card')">💳 Pay via Credit / Debit Card</button>
+  </div>
+
+  <button class="primary" id="buy">Continue to checkout</button>
   <button class="secondary" id="back">Back to store</button>
  </div>
 </div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal" role="dialog" aria-modal="true">
+ <div class="dialog">
+  <button class="close" id="closeLogin">×</button>
+  <h2 style="color:var(--orange)">Player Login</h2>
+  <p>Please enter your Minecraft in-game username to continue shopping.</p>
+  <input type="text" id="usernameInput" placeholder="Enter your in-game name...">
+  <button class="primary" id="saveLoginBtn">LOGIN</button>
+ </div>
+</div>
+
 <script>
 const item=(name,price,icon,color,description)=>({name,price,icon,color,description});
 
-const fenixCoins=[
- item('Fenix+ · 1 Month','Price to be added','🔥','orange','Fenix+ membership for 1 month.'),
- item('Fenix+ · 3 Months','Price to be added','🔥','orange','Fenix+ membership for 3 months.'),
- item('Fenix+ · 6 Months','Price to be added','🔥','orange','Fenix+ membership for 6 months.'),
- ...[['1400 Coins','₹40','🪙'],['3600 Coins','₹80','🪙'],['7700 Coins','₹180','🪙'],['12560 Coins','₹370','🪙'],['15900 Coins','₹500','🪙'],['18600 Coins','₹700','🪙']].map(([n,p,i])=>item(n,p,i,'gold',p+' / '+n+' ❄. Use /coinshop to spend coins.'))
+const fenixPlus=[
+ item('Fenix+ · 1 Month','15.00 USD','🔥','orange','Fenix+ membership for 1 month with exclusive perks.'),
+ item('Fenix+ · 3 Months','40.00 USD','🔥','orange','Fenix+ membership for 3 months with special tag.'),
+ item('Fenix+ · 6 Months','75.00 USD','🔥','orange','Fenix+ membership for 6 months (Best Value).')
 ];
 
-const survival=['Ultimate','Supreme','Titan','Knight'].map((n,i)=>item(n,'Price to be added',['👑','🔥','⚔️','🛡️'][i],i===1?'orange':'red',n+' rank for Survival. Rank perks will be added later.'));
+const coinsStore=[
+ ['1400 Coins','₹40','🪙'],['3600 Coins','₹80','🪙'],['7700 Coins','₹180','🪙'],['12560 Coins','₹370','🪙'],['15900 Coins','₹500','🪙'],['18600 Coins','₹700','🪙']
+].map(([n,p,i])=>item(n,p,i,'gold',p+' / '+n+'. Use /coinshop in-game to spend coins.'));
 
-const lifesteal=['Lord','Boss','Ace','Legendary','Master'].map((n,i)=>item(n,n==='Lord'?'35.00 USD':'Price to be added',['👑','💀','🔥','🏆','⚡'][i],'red',n+' rank for Lifesteal. Rank perks will be added later.'));
+const survival=['Ultimate','Supreme','Titan','Knight'].map((n,i)=>item(n,'25.00 USD',['👑','🔥','⚔️','🛡️️'][i],i===1?'orange':'red',n+' rank for Survival. Full server perks included.'));
+
+const lifesteal=['Lord','Boss','Ace','Legendary','Master'].map((n,i)=>item(n,n==='Lord'?'35.00 USD':'30.00 USD',['👑','💀','🔥','🏆','⚡'][i],'red',n+' rank for Lifesteal server. Special kits and permissions.'));
 
 const groups={
- 'Fenix+ & Coins':fenixCoins,
+ 'Fenix+':fenixPlus,
+ 'Coins':coinsStore,
  'Survival Ranks':survival,
  'Lifesteal Ranks':lifesteal
 };
 
-let current='Featured',selected=null;
+let loggedUser = "";
+let selected=null;
 const $=id=>document.getElementById(id);
 
 function render(group='Featured'){
- current=group;
  $('title').textContent=group==='Featured'?'FEATURED PACKAGES':group.toUpperCase();
  let items=group==='Featured'?
- [lifesteal[0],item('15600 Coins (LIFESTEAL)','12.20 USD','🪙','gold','15600 Coins for Lifesteal.'),item('Ultimate Rank (+2500 Coins)','28.00 USD','⚔️','red','Ultimate rank package.'),item('Supreme Rank (+3800 Coins)','32.00 USD','🔥','orange','Supreme rank package.')]:
+ [lifesteal[0],item('15600 Coins (LIFESTEAL)','12.20 USD','🪙','gold','15600 Coins for Lifesteal server.'),item('Ultimate Rank (+2500 Coins)','28.00 USD','⚔️','red','Ultimate rank package.'),item('Supreme Rank (+3800 Coins)','32.00 USD','🔥','orange','Supreme rank package.')]:
  groups[group];
+ 
  $('products').innerHTML=items.map((it,i)=>`
  <button class="product ${it.color}" data-i="${i}">
   <span class="product-icon">${it.icon}</span>
   <span><span class="pname">${it.name}</span><br><span class="price">${it.price}</span></span>
  </button>`).join('');
+ 
  [...$('products').querySelectorAll('.product')].forEach((b,i)=>b.addEventListener('click',()=>open(items[i])));
 }
 
 function open(it){
+ if(!loggedUser){
+  alert("Please click on 'Click to Login' at the top right and enter your Minecraft username first!");
+  $('loginModal').classList.add('show');
+  return;
+ }
  selected=it;
  $('dIcon').textContent=it.icon;
  $('dName').textContent=it.name;
  $('dPrice').textContent=it.price;
  $('dDesc').textContent=it.description;
- $('modal').classList.add('show');
+ $('checkoutStep').style.display='none';
+ $('buy').style.display='block';$('modal').classList.add('show');
 }
 
 function close(){ $('modal').classList.remove('show') }
@@ -153,8 +195,7 @@ render();
 $('category').addEventListener('click',()=>{
  let open=$('menu').hidden;
  $('menu').hidden=!open;
- $('category').setAttribute('aria-expanded',String(open));
- $('menuSymbol').textContent=open?'×':'☰';
+ $('category').setAttribute('aria-expanded',String(open));$('menuSymbol').textContent=open?'×':'☰';
 });
 
 $('menu').addEventListener('click',e=>{
@@ -162,17 +203,47 @@ $('menu').addEventListener('click',e=>{
  if(!b)return;
  render(b.dataset.group);
  $('menu').hidden=true;
- $('menuSymbol').textContent='☰';
- $('category').setAttribute('aria-expanded','false');
+ $('menuSymbol').textContent='☰';$('category').setAttribute('aria-expanded','false');
 });
 
-$('close').addEventListener('click',close);
-$('back').addEventListener('click',close);
+$('close').addEventListener('click',close);$('back').addEventListener('click',close);
 $('modal').addEventListener('click',e=>{if(e.target===$('modal'))close()});
-$('buy').addEventListener('click',()=>alert('Payment link abhi add nahi hai. Link milne par yahan connect kar denge.'));
-$('profileBtn').addEventListener('click',()=>alert('Profile/login system abhi connect nahi hai.'));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+
+// Login button triggers
+$('profileBtn').addEventListener('click',()=>$('loginModal').classList.add('show'));
+$('closeLogin').addEventListener('click',()=>$('loginModal').classList.remove('show'));
+
+$('saveLoginBtn').addEventListener('click',()=>{
+ let val = $('usernameInput').value.trim();
+ if(val){
+  loggedUser = val;
+  $('profileBtn').textContent = "👤 " + loggedUser;
+  $('loginModal').classList.remove('show');
+  alert("Successfully logged in as " + loggedUser);
+ } else {
+  alert("Please enter a valid username.");
+ }
+});
+
+// Buy flow -> Show 3 checkboxes & Payment gateways
+$('buy').addEventListener('click',()=>{
+ $('checkoutStep').style.display='block';$('buy').style.display='none';
+});
+
+function completePayment(method){
+ let c1 = $('cb1').checked;
+ let c2 = $('cb2').checked;
+ let c3 = $('cb3').checked;
+
+ if(!c1 || !c2 || !c3){
+  alert("You must tick all 3 agreement checkboxes before proceeding to payment!");
+  return;
+ }
+ alert("Order confirmed for " + loggedUser + "! Redirecting to secure gateway via " + method + "...");
+ location.reload();
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){close(); $('loginModal').classList.remove('show');}});
 </script>
 </body>
 </html>
-
