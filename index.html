@@ -1,372 +1,178 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FenixMC | Store</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #12141c;
-            color: #ffffff;
-        }
-        header {
-            background: #181b26;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            border-bottom: 2px solid #252a3a;
-        }
-        .login-box {
-            background: #1e2333;
-            padding: 6px 14px;
-            border-radius: 6px;
-            border: 1px solid #32384e;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .login-box b {
-            color: #f3f4f6;
-        }
-        .hero-section {
-            text-align: center;
-            padding: 25px 20px 15px 20px;
-            background: #12141c;
-        }
-        .logo-title {
-            font-size: 38px;
-            font-weight: 900;
-            color: #ff4757;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
-            margin-bottom: 10px;
-        }
-        .stats-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .stat-badge {
-            background: #1b1f2e;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #fbbf24;
-            border: 1px solid #2a3147;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .category-btn-container {
-            padding: 15px 20px;
-        }
-        .category-toggle {
-            background: #1a1e2d;
-            border: 1px solid #2d354d;
-            color: #fbbf24;
-            padding: 12px 18px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .container {
-            padding: 0 20px 30px 20px;
-        }
-        .section-title {
-            font-size: 16px;
-            color: #fbbf24;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .products-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .product-card {
-            background: #191d2b;
-            border-radius: 8px;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a3147;
-        }
-        .product-card.green { border-left: 4px solid #22c55e; }
-        .product-card.yellow { border-left: 4px solid #eab308; }
-        .product-card.blue { border-left: 4px solid #3b82f6; }
-        .product-card.purple { border-left: 4px solid #a855f7; }
-
-        .product-info h4 {
-            font-size: 14px;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-        .product-info .price {
-            color: #9ca3af;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .buy-btn {
-            background: #8b5cf6;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Cart & Checkout Section */
-        .cart-section {
-            background: #171b28;
-            border: 1px solid #2a3147;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-            display: none;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #252a3a;
-            padding-bottom: 8px;
-        }
-        .checkout-box {
-            margin-top: 15px;
-            background: #12141c;
-            padding: 12px;
-            border-radius: 6px;
-        }
-        .checkbox-label {
-            font-size: 12px;
-            color: #d1d5db;
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-        .checkout-btn {
-            background: #f59e0b;
-            color: #000;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        /* Modal / Popup design */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-        .modal-content {
-            background: #181c2b;
-            padding: 20px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 350px;
-            border: 1px solid #2e3650;
-            text-align: center;
-        }
-        .modal-content input {
-            width: 100%;
-            padding: 10px;
-            margin: 15px 0;
-            background: #11131c;
-            border: 1px solid #374151;
-            color: white;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .modal-content button {
-            background: #f59e0b;
-            color: black;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FenixMC Store</title>
+<style>
+:root{--bg:#17161b;--panel:#242228;--panel2:#2c2930;--orange:#ff922d;--gold:#e8b72b;--red:#ef393d;--text:#f5f3f5;--muted:#aaa6ae}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,sans-serif}
+button{font:inherit;cursor:pointer}
+.hero{height:390px;position:relative;text-align:center;overflow:hidden;background:linear-gradient(#17161b55,#17161bdf),radial-gradient(ellipse at 50% 8%,#7b4a43,#38302f 43%,#17161b 80%)}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#d28c79 0,transparent 40%);opacity:.3}
+.topbar{position:absolute;right:15px;top:16px;z-index:2}
+.topbar button{background:#29262dcc;border:1px solid #ffffff22;color:#fff;padding:8px 12px;border-radius:5px}
+.logo{position:relative;padding-top:66px}
+.mascot{font-size:75px;line-height:1.1;filter:drop-shadow(0 6px 5px #0009)}
+.brand{font-size:clamp(46px,12vw,78px);font-weight:1000;letter-spacing:-4px;color:#ffad32;text-shadow:0 4px #d34b0c,0 8px #8f2c0b,3px 12px 12px #000;transform:skew(-5deg)}
+.stats{position:relative;display:flex;justify-content:center;gap:110px;margin-top:24px}
+.stat{display:flex;align-items:center;flex-direction:column;gap:8px;color:var(--orange)}
+.pill{background:#ff9700;color:#211a15;border-radius:24px;padding:5px 14px;font-weight:bold;font-size:17px}
+.social{width:53px;height:53px;border-radius:12px;background:#ff9700;color:#211a15;display:grid;place-items:center;font-size:28px}
+.wrap{max-width:950px;margin:auto;padding:0 13px}
+.panel{background:var(--panel);border-radius:7px;padding:20px;margin:14px 0 22px}
+.category{display:flex;align-items:center;gap:18px;border:0;background:transparent;color:var(--orange);font-size:19px;font-weight:bold;text-align:left;width:100%;padding:4px 10px}
+.category .symbol{font-size:30px;line-height:1}
+.menu{margin:20px -20px -20px;border-top:1px solid #ffffff08}
+.menu[hidden]{display:none}
+.menu-item{width:100%;display:flex;align-items:center;gap:22px;text-align:left;border:0;border-bottom:1px solid #ffffff08;background:transparent;color:#aaa6af;padding:21px 20px;font-size:18px;font-weight:bold;letter-spacing:.4px}
+.menu-item:hover,.menu-item.active{background:#302d34;color:#fff}
+.menu-icon{width:70px;min-width:70px;text-align:center;font-size:49px;line-height:1.1}
+.section-title{font-size:22px;letter-spacing:1.4px;margin:0 0 17px;color:#f5f3f5}
+.products{display:grid;grid-template-columns:1fr;gap:13px}
+.product{width:100%;display:flex;align-items:center;gap:20px;text-align:left;color:#fff;border:3px solid var(--gold);border-radius:9px;padding:15px;background:#261b1a;min-height:150px;box-shadow:0 0 8px color-mix(in srgb,var(--edge) 40%,transparent);transition:filter .15s,transform .15s}
+.product:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.product.red{--edge:#f02f36;border-color:#f02f36;background:#2b1012;box-shadow:0 0 8px #f02f3680}
+.product.orange{--edge:#ff8b20;border-color:#ff8b20;background:#2b1b10;box-shadow:0 0 8px #ff8b2070}
+.product.gold{--edge:#e9b82d;border-color:#e9b82d;background:#292313;box-shadow:0 0 8px #e9b82d65}
+.product.green{--edge:#65ef3a;border-color:#65ef3a;background:#172716}
+.product-icon{width:115px;min-width:115px;height:115px;display:grid;place-items:center;font-size:75px}
+.pname{font-size:clamp(18px,4.6vw,25px);font-weight:bold;line-height:1.45}
+.price{font-size:20px;font-weight:bold;margin-top:7px}
+.desc{color:#c9c4cb;font-size:13px;margin-top:4px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal.show{display:flex}
+.dialog{width:min(460px,100%);background:#25222a;border:1px solid #514b55;border-radius:9px;padding:22px;position:relative}
+.close{position:absolute;right:12px;top:8px;background:none;border:0;color:#fff;font-size:26px}
+.dialog h2{color:var(--orange);margin:5px 30px 8px 0}
+.dialog p{color:#ccc}
+.primary,.secondary{width:100%;padding:11px;border-radius:5px;margin-top:8px;font-weight:bold}
+.primary{background:var(--orange);border:0;color:#211b16}
+.secondary{background:#393640;border:1px solid #514c58;color:white}
+.notice{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+@media(min-width:650px){
+.products{grid-template-columns:1fr 1fr}
+.product{min-height:160px}
+.hero{height:430px}
+}
+</style>
 </head>
 <body>
+<header class="hero">
+ <div class="topbar"><button id="profileBtn">👤 My Profile</button></div>
+ <div class="logo">
+  <div class="mascot">🐉</div>
+  <div class="brand">FenixMC</div>
+ </div>
+ <div class="stats">
+  <div class="stat"><span class="pill">3,768</span><span class="social">☏</span></div>
+  <div class="stat"><span class="pill">557</span><span class="social">♨</span></div>
+ </div>
+</header>
+<main class="wrap">
+ <section class="panel">
+  <button class="category" id="category" aria-expanded="false">
+   <span class="symbol" id="menuSymbol">☰</span>
+   <span>SELECT A CATEGORY</span>
+  </button>
+  <div class="menu" id="menu" hidden>
+   <button class="menu-item" data-group="Fenix+ & Coins"><span class="menu-icon">🔥</span><span>Fenix+ &amp; Coins</span></button>
+   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️</span><span>Lifesteal Ranks</span></button>
+   <button class="menu-item" data-group="Survival Ranks"><span class="menu-icon">🛡️</span><span>Survival Ranks</span></button>
+  </div>
+ </section>
+ <section class="panel">
+  <h2 class="section-title" id="title">FEATURED PACKAGES</h2>
+  <div class="products" id="products"></div>
+ </section>
+ <div class="notice">FenixMC Store · Package details · Payment links can be connected later</div>
+</main>
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+ <div class="dialog">
+  <button class="close" id="close">×</button>
+  <div id="dIcon" style="font-size:50px">🎁</div>
+  <h2 id="dName">Package</h2>
+  <div id="dPrice" style="font-weight:bold;font-size:20px"></div>
+  <p id="dDesc">Package details will be added later.</p>
+  <button class="primary" id="buy">Continue to payment</button>
+  <button class="secondary" id="back">Back to store</button>
+ </div>
+</div>
+<script>
+const item=(name,price,icon,color,description)=>({name,price,icon,color,description});
 
-    <header>
-        <div class="login-box" onclick="openLoginModal()">
-            <span id="player-avatar">👤</span>
-            <div>
-                <div style="font-size: 10px; color: #9ca3af;" id="guest-label">Guest</div>
-                <b id="login-text">CLICK TO LOGIN</b>
-            </div>
-        </div>
-    </header>
+const fenixCoins=[
+ item('Fenix+ · 1 Month','Price to be added','🔥','orange','Fenix+ membership for 1 month.'),
+ item('Fenix+ · 3 Months','Price to be added','🔥','orange','Fenix+ membership for 3 months.'),
+ item('Fenix+ · 6 Months','Price to be added','🔥','orange','Fenix+ membership for 6 months.'),
+ ...[['1400 Coins','₹40','🪙'],['3600 Coins','₹80','🪙'],['7700 Coins','₹180','🪙'],['12560 Coins','₹370','🪙'],['15900 Coins','₹500','🪙'],['18600 Coins','₹700','🪙']].map(([n,p,i])=>item(n,p,i,'gold',p+' / '+n+' ❄. Use /coinshop to spend coins.'))
+];
 
-    <div class="hero-section">
-        <div class="logo-title">FenixMC</div>
-        <div class="stats-row">
-            <div class="stat-badge">💬 3,426</div>
-            <div class="stat-badge">🔥 481</div>
-        </div>
-    </div>
+const survival=['Ultimate','Supreme','Titan','Knight'].map((n,i)=>item(n,'Price to be added',['👑','🔥','⚔️','🛡️'][i],i===1?'orange':'red',n+' rank for Survival. Rank perks will be added later.'));
 
-    <div class="category-btn-container">
-        <button class="category-toggle">
-            ☰ SELECT A CATEGORY
-        </button>
-    </div>
+const lifesteal=['Lord','Boss','Ace','Legendary','Master'].map((n,i)=>item(n,n==='Lord'?'35.00 USD':'Price to be added',['👑','💀','🔥','🏆','⚡'][i],'red',n+' rank for Lifesteal. Rank perks will be added later.'));
 
-    <div class="container">
-        <!-- Cart Drawer (Shows up when item is added) -->
-        <div id="cartSection" class="cart-section">
-            <h3 class="section-title" style="margin-bottom: 10px;">Review your cart (1 item)</h3>
-            <div class="cart-item">
-                <span id="cart-item-name">GOD Rank (+3600 Coins)</span>
-                <span id="cart-item-price" style="font-weight:bold; color:#fbbf24;">27.00 USD</span>
-            </div>
-            
-            <div class="checkout-box">
-                <h4 style="font-size: 13px; color: #fbbf24; margin-bottom: 8px;">User Agreement</h4>
-                <label class="checkbox-label"><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this purchase.</label>
-                <label class="checkbox-label"><input type="checkbox" id="cb2"> I confirm that I am either over 16 or have guardian permission.</label>
-                <label class="checkbox-label"><input type="checkbox" id="cb3"> I verify that the Minecraft account belongs to me.</label>
-                
-                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
-            </div>
-        </div>
+const groups={
+ 'Fenix+ & Coins':fenixCoins,
+ 'Survival Ranks':survival,
+ 'Lifesteal Ranks':lifesteal
+};
 
-        <h3 class="section-title">Featured Packages</h3>
-        
-        <div class="products-list">
-            <div class="product-card green">
-                <div class="product-info">
-                    <h4>GOD Rank (+3600 Coins)</h4>
-                    <div class="price">27.00 USD</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('GOD Rank (+3600 Coins)', '27.00 USD')">Add</button>
-            </div>
+let current='Featured',selected=null;
+const $=id=>document.getElementById(id);
 
-            <div class="product-card yellow">
-                <div class="product-info">
-                    <h4>15600 Coins (LIFESTEAL)</h4>
-                    <div class="price">12.20 USD</div>
-                </div>
-                <button class="buy-btn" style="background: #eab308; color:black;" onclick="addToCart('15600 Coins (LIFESTEAL)', '12.20 USD')">Add</button>
-            </div>
+function render(group='Featured'){
+ current=group;
+ $('title').textContent=group==='Featured'?'FEATURED PACKAGES':group.toUpperCase();
+ let items=group==='Featured'?
+ [lifesteal[0],item('15600 Coins (LIFESTEAL)','12.20 USD','🪙','gold','15600 Coins for Lifesteal.'),item('Ultimate Rank (+2500 Coins)','28.00 USD','⚔️','red','Ultimate rank package.'),item('Supreme Rank (+3800 Coins)','32.00 USD','🔥','orange','Supreme rank package.')]:
+ groups[group];
+ $('products').innerHTML=items.map((it,i)=>`
+ <button class="product ${it.color}" data-i="${i}">
+  <span class="product-icon">${it.icon}</span>
+  <span><span class="pname">${it.name}</span><br><span class="price">${it.price}</span></span>
+ </button>`).join('');
+ [...$('products').querySelectorAll('.product')].forEach((b,i)=>b.addEventListener('click',()=>open(items[i])));
+}
 
-            <div class="product-card blue">
-                <div class="product-info">
-                    <h4>Deadliest Rank (+1000 Coins)</h4>
-                    <div class="price">6.70 USD</div>
-                </div>
-                <button class="buy-btn" style="background: #3b82f6;" onclick="addToCart('Deadliest Rank (+1000 Coins)', '6.70 USD')">Add</button>
-            </div>
+function open(it){
+ selected=it;
+ $('dIcon').textContent=it.icon;
+ $('dName').textContent=it.name;
+ $('dPrice').textContent=it.price;
+ $('dDesc').textContent=it.description;
+ $('modal').classList.add('show');
+}
 
-            <div class="product-card purple">
-                <div class="product-info">
-                    <h4>Supreme Rank (+3200 Coins)</h4>
-                    <div class="price">22.00 USD</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Supreme Rank (+3200 Coins)', '22.00 USD')">Add</button>
-            </div>
-        </div>
-    </div>
+function close(){ $('modal').classList.remove('show') }
 
-    <!-- Login Modal Box -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <h3 style="color: #fbbf24; margin-bottom: 5px;">Please enter your username to continue</h3>
-            <p style="font-size: 12px; color: #9ca3af;">Usernames can't contain spaces.</p>
-            <input type="text" id="usernameInput" placeholder="Enter your in-game name...">
-            <button onclick="saveUsername()">CONTINUE</button>
-            <button onclick="closeLoginModal()" style="background: transparent; color: #9ca3af; margin-top: 10px;">Cancel</button>
-        </div>
-    </div>
+render();
 
-    <script>
-        let loggedUser = "";
+$('category').addEventListener('click',()=>{
+ let open=$('menu').hidden;
+ $('menu').hidden=!open;
+ $('category').setAttribute('aria-expanded',String(open));
+ $('menuSymbol').textContent=open?'×':'☰';
+});
 
-        function openLoginModal() {
-            document.getElementById("loginModal").style.display = "flex";
-        }
+$('menu').addEventListener('click',e=>{
+ let b=e.target.closest('[data-group]');
+ if(!b)return;
+ render(b.dataset.group);
+ $('menu').hidden=true;
+ $('menuSymbol').textContent='☰';
+ $('category').setAttribute('aria-expanded','false');
+});
 
-        function closeLoginModal() {
-            document.getElementById("loginModal").style.display = "none";
-        }
-
-        function saveUsername() {
-            let name = document.getElementById("usernameInput").value;
-            if (name.trim() !== "") {
-                loggedUser = name.trim();
-                document.getElementById("login-text").innerText = loggedUser;
-                document.getElementById("guest-label").innerText = "Shopping as";
-                document.getElementById("player-avatar").innerText = "✅";
-                closeLoginModal();
-            } else {
-                alert("Please enter a valid username.");
-            }
-        }
-
-        function addToCart(itemName, itemPrice) {
-            if (loggedUser === "") {
-                alert("Please login with your in-game name first!");
-                openLoginModal();
-            } else {
-                document.getElementById("cart-item-name").innerText = itemName;
-                document.getElementById("cart-item-price").innerText = itemPrice;
-                document.getElementById("cartSection").style.display = "block";
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function proceedToCheckout() {
-            let c1 = document.getElementById("cb1").checked;
-            let c2 = document.getElementById("cb2").checked;
-            let c3 = document.getElementById("cb3").checked;
-
-            if (!c1 || !c2 || !c3) {
-                alert("You must tick all boxes before you can continue to checkout.");
-            } else {
-                alert("Redirecting to Tebex Secure Payment Gateway (UPI / Cards / PayPal)...");
-                window.location.href = "https://pay.tebex.io"; // Video jaisa secure checkout redirect
-            }
-        }
-    </script>
-
+$('close').addEventListener('click',close);
+$('back').addEventListener('click',close);
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))close()});
+$('buy').addEventListener('click',()=>alert('Payment link abhi add nahi hai. Link milne par yahan connect kar denge.'));
+$('profileBtn').addEventListener('click',()=>alert('Profile/login system abhi connect nahi hai.'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+</script>
 </body>
 </html>
 
