@@ -83,7 +83,7 @@ button{font:inherit;cursor:pointer}
   <div class="menu" id="menu" hidden>
    <button class="menu-item" data-group="Fenix+"><span class="menu-icon">🔥</span><span>Fenix+ Membership</span></button>
    <button class="menu-item" data-group="Coins"><span class="menu-icon">🪙</span><span>Coins Store</span></button>
-   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️️</span><span>Lifesteal Ranks</span></button>
+   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔</span><span>Lifesteal Ranks</span></button>
    <button class="menu-item" data-group="Survival Ranks"><span class="menu-icon">🛡️</span><span>Survival Ranks</span></button>
   </div>
  </section>
@@ -94,7 +94,7 @@ button{font:inherit;cursor:pointer}
  <div class="notice">FenixMC Store · Direct UPI Payment & Live Discord Logging</div>
 </main>
 
-<!-- Main Action Modal (Product Details / Agreements / Checkout) -->
+<!-- Main Action Modal -->
 <div class="modal" id="modal" role="dialog" aria-modal="true">
  <div class="dialog">
   <button class="close" id="close">×</button>
@@ -139,14 +139,19 @@ const fenixPlus=[
 ];
 
 const coinsStore=[
- ['1400 Coins','₹40','🪙'],['3600 Coins','₹80','🪙'],['7700 Coins','₹180','🪙'],['12560 Coins','₹370','🪙'],['15900 Coins','₹500','🪙'],['18600 Coins','₹700','🪙']
-].map(([n,p,i])=>item(n,p,i,'gold',p+' / '+n+'. Use /coinshop in-game to spend coins.'));
+ item('1400 Coins','₹40','🪙','gold','1400 Coins / ₹40. Use /coinshop in-game to spend coins.'),
+ item('3600 Coins','₹80','🪙','gold','3600 Coins / ₹80. Use /coinshop in-game to spend coins.'),
+ item('7700 Coins','₹180','🪙','gold','7700 Coins / ₹180. Use /coinshop in-game to spend coins.'),
+ item('12560 Coins','₹370','🪙','gold','12560 Coins / ₹370. Use /coinshop in-game to spend coins.'),
+ item('15900 Coins','₹500','🪙','gold','15900 Coins / ₹500. Use /coinshop in-game to spend coins.'),
+ item('18600 Coins','₹700','🪙','gold','18600 Coins / ₹700. Use /coinshop in-game to spend coins.')
+];
 
 const survival=[
  item('Ultimate Rank','₹700','👑','orange','Ultimate rank for Survival. Full server perks included.'),
  item('Supreme Rank','₹500','🔥','orange','Supreme rank for Survival. High-tier perks included.'),
  item('Titan Rank','₹400','⚔️','red','Titan rank for Survival server.'),
- item('Knight Rank','₹300','🛡️️','red','Knight rank for Survival server.')
+ item('Knight Rank','₹300','🛡','red','Knight rank for Survival server.')
 ];
 
 const lifesteal=[
@@ -171,7 +176,7 @@ const $=id=>document.getElementById(id);
 function render(group='Featured'){
  $('title').textContent=group==='Featured'?'FEATURED PACKAGES':group.toUpperCase();
  let items=group==='Featured'?
- [lifesteal[0],survival[0],item('15600 Coins (LIFESTEAL)','₹500','🪙','gold','15600 Coins for Lifesteal server.'),item('Supreme Rank (+3800 Coins)','₹500','🔥','orange','Supreme rank package.')]:
+ [lifesteal[0],survival[0],coinsStore[4],fenixPlus[0]]:
  groups[group];
  
  $('products').innerHTML=items.map((it,i)=>`
@@ -239,14 +244,11 @@ $('buy').addEventListener('click',()=>{
  let c2 = $('cb2').checked;
  let c3 = $('cb3').checked;
 
- // Show checkout step and build dynamic UPI intent link
  $('checkoutStep').style.display='block';$('buy').style.display='none';
 
- // Clean price string (e.g., '₹700' -> '700')
  let rawNum = selected.price.replace(/[^0-9.]/g, '');
  if(!rawNum) rawNum = "100";
 
- // UPI Intent Link with exact amount and store name
  let upiLink = `upi://pay?pa=fenixmc@okhdfcbank&pn=FenixMC%20Store&am=${rawNum}&cu=INR&tn=Order%20for%20${loggedUser}%20-%20${encodeURIComponent(selected.name)}`;
  $('upiPayLink').setAttribute('href', upiLink);
 });
@@ -291,3 +293,4 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){close(); $('loginMo
 </script>
 </body>
 </html>
+
