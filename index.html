@@ -1,296 +1,852 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FenixMC Store</title>
+
 <style>
-:root{--bg:#17161b;--panel:#242228;--panel2:#2c2930;--orange:#ff922d;--gold:#e8b72b;--red:#ef393d;--text:#f5f3f5;--muted:#aaa6ae}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,sans-serif}
-button{font:inherit;cursor:pointer}
-.hero{height:390px;position:relative;text-align:center;overflow:hidden;background:linear-gradient(#17161b55,#17161bdf),radial-gradient(ellipse at 50% 8%,#7b4a43,#38302f 43%,#17161b 80%)}
-.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#d28c79 0,transparent 40%);opacity:.3}
-.topbar{position:absolute;right:15px;top:16px;z-index:2}
-.topbar button{background:#29262dcc;border:1px solid #ffffff22;color:#fff;padding:8px 12px;border-radius:5px}
-.logo{position:relative;padding-top:66px}
-.mascot{font-size:75px;line-height:1.1;filter:drop-shadow(0 6px 5px #0009)}
-.brand{font-size:clamp(46px,12vw,78px);font-weight:1000;letter-spacing:-4px;color:#ffad32;text-shadow:0 4px #d34b0c,0 8px #8f2c0b,3px 12px 12px #000;transform:skew(-5deg)}
-.stats{position:relative;display:flex;justify-content:center;gap:110px;margin-top:24px}
-.stat{display:flex;align-items:center;flex-direction:column;gap:8px;color:var(--orange)}
-.pill{background:#ff9700;color:#211a15;border-radius:24px;padding:5px 14px;font-weight:bold;font-size:17px}
-.social{width:53px;height:53px;border-radius:12px;background:#ff9700;color:#211a15;display:grid;place-items:center;font-size:28px}
-.wrap{max-width:950px;margin:auto;padding:0 13px}
-.panel{background:var(--panel);border-radius:7px;padding:20px;margin:14px 0 22px}
-.category{display:flex;align-items:center;gap:18px;border:0;background:transparent;color:var(--orange);font-size:19px;font-weight:bold;text-align:left;width:100%;padding:4px 10px}
-.category .symbol{font-size:30px;line-height:1}
-.menu{margin:20px -20px -20px;border-top:1px solid #ffffff08}
-.menu[hidden]{display:none}
-.menu-item{width:100%;display:flex;align-items:center;gap:22px;text-align:left;border:0;border-bottom:1px solid #ffffff08;background:transparent;color:#aaa6af;padding:21px 20px;font-size:18px;font-weight:bold;letter-spacing:.4px}
-.menu-item:hover,.menu-item.active{background:#302d34;color:#fff}
-.menu-icon{width:70px;min-width:70px;text-align:center;font-size:49px;line-height:1.1}
-.section-title{font-size:22px;letter-spacing:1.4px;margin:0 0 17px;color:#f5f3f5}
-.products{display:grid;grid-template-columns:1fr;gap:13px}
-.product{width:100%;display:flex;align-items:center;gap:20px;text-align:left;color:#fff;border:3px solid var(--gold);border-radius:9px;padding:15px;background:#261b1a;min-height:150px;box-shadow:0 0 8px color-mix(in srgb,var(--edge) 40%,transparent);transition:filter .15s,transform .15s}
-.product:hover{filter:brightness(1.15);transform:translateY(-2px)}
-.product.red{--edge:#f02f36;border-color:#f02f36;background:#2b1012;box-shadow:0 0 8px #f02f3680}
-.product.orange{--edge:#ff8b20;border-color:#ff8b20;background:#2b1b10;box-shadow:0 0 8px #ff8b2070}
-.product.gold{--edge:#e9b82d;border-color:#e9b82d;background:#292313;box-shadow:0 0 8px #e9b82d65}
-.product.green{--edge:#65ef3a;border-color:#65ef3a;background:#172716}
-.product-icon{width:115px;min-width:115px;height:115px;display:grid;place-items:center;font-size:75px}
-.pname{font-size:clamp(18px,4.6vw,25px);font-weight:bold;line-height:1.45}
-.price{font-size:20px;font-weight:bold;margin-top:7px}
-.desc{color:#c9c4cb;font-size:13px;margin-top:4px}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
-.modal.show{display:flex}
-.dialog{width:min(460px,100%);background:#25222a;border:1px solid #514b55;border-radius:9px;padding:22px;position:relative}
-.close{position:absolute;right:12px;top:8px;background:none;border:0;color:#fff;font-size:26px}
-.dialog h2{color:var(--orange);margin:5px 30px 8px 0}
-.dialog p{color:#ccc}
-.primary,.secondary{width:100%;padding:11px;border-radius:5px;margin-top:8px;font-weight:bold}
-.primary{background:var(--orange);border:0;color:#211b16}
-.secondary{background:#393640;border:1px solid #514c58;color:white}
-.notice{text-align:center;color:var(--muted);font-size:12px;padding:16px}
-.checkbox-container { margin: 12px 0; text-align: left; background: #1b191e; padding: 10px; border-radius: 6px; }
-.checkbox-container label { display: flex; gap: 8px; font-size: 13px; color: #ddd; margin-bottom: 6px; cursor: pointer; align-items: flex-start; }
-.dialog input[type="text"] { width: 100%; padding: 10px; margin: 12px 0; background: #17161b; border: 1px solid #514b55; color: white; border-radius: 5px; }
-.pay-btn { background: #22c55e; color: black; width: 100%; padding: 12px; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 8px; font-size: 15px; text-decoration: none; display: block; text-align: center;}
-@media(min-width:650px){
-.products{grid-template-columns:1fr 1fr}
-.product{min-height:160px}
-.hero{height:430px}
+:root{
+  --bg:#090909;
+  --card:#151515;
+  --card2:#1d1b20;
+  --border:#333;
+  --red:#ff2b2b;
+  --orange:#ff8a00;
+  --gold:#ffc400;
+  --green:#00d95b;
+  --white:#fff;
+  --muted:#aaa;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:
+    radial-gradient(circle at top,#351010 0%,#090909 45%);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+
+header{
+  padding:28px 18px 20px;
+  text-align:center;
+  border-bottom:1px solid #292929;
+}
+
+.logo{
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#ff1e1e,#ff8a00,#ffd000);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.subtitle{
+  color:#999;
+  margin-top:7px;
+  font-size:14px;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:auto;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:22px 0;
+}
+
+.stat{
+  background:rgba(255,255,255,.04);
+  border:1px solid #292929;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:21px;
+  color:#fff;
+}
+
+.stat span{
+  color:#888;
+  font-size:12px;
+}
+
+.login{
+  background:linear-gradient(135deg,#171717,#211111);
+  border:1px solid #3a2020;
+  padding:20px;
+  border-radius:18px;
+  margin-bottom:24px;
+}
+
+.login h2{
+  margin-bottom:12px;
+}
+
+input{
+  width:100%;
+  background:#0f0f0f;
+  border:1px solid #3a3a3a;
+  color:white;
+  padding:14px;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:var(--orange);
+}
+
+button{
+  cursor:pointer;
+}
+
+.save{
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ff2b2b,#ff8a00);
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.categories{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:12px;
+  margin-bottom:18px;
+}
+
+.categories button{
+  white-space:nowrap;
+  padding:10px 16px;
+  border-radius:20px;
+  border:1px solid #333;
+  background:#171717;
+  color:#bbb;
+}
+
+.categories button.active{
+  background:#ff3b18;
+  color:white;
+  border-color:#ff3b18;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  padding-bottom:40px;
+}
+
+.product{
+  background:linear-gradient(145deg,#171717,#0f0f0f);
+  border:1px solid #292929;
+  border-radius:18px;
+  padding:20px;
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-3px);
+  border-color:#7b2727;
+}
+
+.icon{
+  font-size:52px;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.product h3{
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.product p{
+  color:#999;
+  font-size:13px;
+  line-height:1.5;
+  min-height:58px;
+}
+
+.price{
+  color:#ffc400;
+  font-size:21px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.buy{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ff2525,#ff7a00);
+  color:white;
+  font-weight:bold;
+}
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  z-index:99;
+  padding:20px;
+  overflow:auto;
+}
+
+.modal{
+  max-width:640px;
+  margin:30px auto;
+  background:#222026;
+  border:1px solid #444;
+  border-radius:20px;
+  padding:26px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:18px;
+  top:14px;
+  border:0;
+  background:none;
+  color:white;
+  font-size:27px;
+}
+
+.modalIcon{
+  font-size:72px;
+  margin-bottom:15px;
+}
+
+.modal h2{
+  font-size:31px;
+  color:#ff8a00;
+  margin-bottom:10px;
+}
+
+.modalPrice{
+  color:#ffc400;
+  font-size:26px;
+  font-weight:bold;
+  margin:18px 0;
+}
+
+.desc{
+  color:#bbb;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.checks{
+  background:#18171b;
+  border-radius:13px;
+  padding:15px;
+  margin:15px 0;
+}
+
+.check{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:10px 0;
+  color:#ddd;
+  line-height:1.5;
+}
+
+.check input{
+  width:20px;
+  height:20px;
+  accent-color:#1683ff;
+  flex:none;
+}
+
+.payment{
+  margin-top:20px;
+}
+
+.payment h3{
+  color:#ff8a00;
+  margin-bottom:10px;
+}
+
+.amount{
+  color:#ddd;
+  font-size:17px;
+  margin-bottom:14px;
+}
+
+.upi{
+  width:100%;
+  padding:17px;
+  border:0;
+  border-radius:11px;
+  background:#00d95b;
+  color:#001d0b;
+  font-size:18px;
+  font-weight:900;
+}
+
+.upi:active{
+  transform:scale(.98);
+}
+
+.back{
+  width:100%;
+  margin-top:12px;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #444;
+  background:#36343b;
+  color:white;
+}
+
+.notice{
+  color:#999;
+  font-size:12px;
+  line-height:1.6;
+  margin-top:14px;
+}
+
+.status{
+  display:none;
+  margin:14px 0;
+  padding:12px;
+  border-radius:10px;
+  background:#06351d;
+  border:1px solid #08783e;
+  color:#8affbb;
+}
+
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:560px){
+  .stats{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .modal{
+    margin:10px auto;
+    padding:22px;
+  }
 }
 </style>
 </head>
+
 <body>
-<header class="hero">
- <div class="topbar"><button id="profileBtn">👤 Click to Login</button></div>
- <div class="logo">
-  <div class="mascot">🐉</div>
-  <div class="brand">FenixMC</div>
- </div>
- <div class="stats">
-  <div class="stat"><span class="pill">3,768</span><span class="social">☏</span></div>
-  <div class="stat"><span class="pill">557</span><span class="social">♨</span></div>
- </div>
+
+<header>
+  <div class="logo">FENIXMC STORE</div>
+  <div class="subtitle">Premium ranks & items for your Minecraft server</div>
 </header>
-<main class="wrap">
- <section class="panel">
-  <button class="category" id="category" aria-expanded="false">
-   <span class="symbol" id="menuSymbol">☰</span>
-   <span>SELECT A CATEGORY</span>
-  </button>
-  <div class="menu" id="menu" hidden>
-   <button class="menu-item" data-group="Fenix+"><span class="menu-icon">🔥</span><span>Fenix+ Membership</span></button>
-   <button class="menu-item" data-group="Coins"><span class="menu-icon">🪙</span><span>Coins Store</span></button>
-   <button class="menu-item" data-group="Lifesteal Ranks"><span class="menu-icon">⚔️</span><span>Lifesteal Ranks</span></button>
-   <button class="menu-item" data-group="Survival Ranks"><span class="menu-icon">🛡️</span><span>Survival Ranks</span></button>
+
+<main class="container">
+
+  <div class="stats">
+    <div class="stat">
+      <b>3,768</b>
+      <span>Players</span>
+    </div>
+
+    <div class="stat">
+      <b>557</b>
+      <span>Online</span>
+    </div>
+
+    <div class="stat">
+      <b>24/7</b>
+      <span>Server</span>
+    </div>
   </div>
- </section>
- <section class="panel">
-  <h2 class="section-title" id="title">FEATURED PACKAGES</h2>
-  <div class="products" id="products"></div>
- </section>
- <div class="notice">FenixMC Store · Direct UPI Payment & Live Discord Logging</div>
+
+  <section class="login">
+    <h2>🎮 Minecraft Username</h2>
+
+    <input
+      id="username"
+      maxlength="16"
+      autocomplete="off"
+      placeholder="Enter your Minecraft username"
+    >
+
+    <button class="save" onclick="saveUsername()">
+      Save Username
+    </button>
+  </section>
+
+  <div class="categories">
+    <button class="active" onclick="filterProducts('all',this)">All</button>
+    <button onclick="filterProducts('rank',this)">Ranks</button>
+    <button onclick="filterProducts('coin',this)">Coins</button>
+    <button onclick="filterProducts('item',this)">Items</button>
+  </div>
+
+  <section class="grid" id="products"></section>
+
 </main>
 
-<!-- Main Action Modal -->
-<div class="modal" id="modal" role="dialog" aria-modal="true">
- <div class="dialog">
-  <button class="close" id="close">×</button>
-  <div id="dIcon" style="font-size:50px">🎁</div>
-  <h2 id="dName">Package</h2>
-  <div id="dPrice" style="font-weight:bold;font-size:20px;color:var(--gold)"></div>
-  <p id="dDesc" style="margin-top:6px;">Package details.</p>
-  
-  <div id="checkoutStep" style="display:none;">
-   <div class="checkbox-container">
-    <label><input type="checkbox" id="cb1"> I agree with Terms and Conditions of this store.</label>
-    <label><input type="checkbox" id="cb2"> I confirm that I am either over 16 or have guardian permission.</label>
-    <label><input type="checkbox" id="cb3"> I verify that the Minecraft account belongs to me.</label>
-   </div>
-   <h4 style="color:var(--orange); margin-bottom:6px; font-size:14px;">Select Payment Gateway:</h4>
-   <a id="upiPayLink" href="#" class="pay-btn" onclick="triggerDiscordOrder()" target="_blank">⚡ Pay via GPay / PhonePe / Paytm (Direct UPI)</a>
+<div class="overlay" id="overlay">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <div class="modalIcon" id="modalIcon"></div>
+
+    <h2 id="modalName"></h2>
+
+    <div class="modalPrice" id="modalPrice"></div>
+
+    <p class="desc" id="modalDesc"></p>
+
+    <div class="checks">
+
+      <label class="check">
+        <input type="checkbox" id="terms">
+        <span>I agree to the store Terms & Conditions.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="permission">
+        <span>I confirm I have the required permission to make this purchase.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="account">
+        <span>I confirm that the Minecraft account belongs to me.</span>
+      </label>
+
+    </div>
+
+    <div class="payment">
+
+      <h3>Payment</h3>
+
+      <div class="amount">
+        UPI amount:
+        <b id="inrAmount">₹0.00</b>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <button class="upi" onclick="continueToUPI()">
+        ⚡ Continue to UPI
+      </button>
+
+      <div class="notice">
+        Payment will open your installed UPI application.
+        Keep your transaction/reference number for manual confirmation.
+        This GitHub Pages trial cannot securely verify payments automatically.
+      </div>
+
+      <button class="back" onclick="closeModal()">
+        Back to store
+      </button>
+
+    </div>
+
   </div>
 
-  <button class="primary" id="buy">Continue to checkout</button>
-  <button class="secondary" id="back">Back to store</button>
- </div>
-</div>
-
-<!-- Login Modal -->
-<div class="modal" id="loginModal" role="dialog" aria-modal="true">
- <div class="dialog">
-  <button class="close" id="closeLogin">×</button>
-  <h2 style="color:var(--orange)">Player Login</h2>
-  <p>Please enter your Minecraft in-game username to continue shopping.</p>
-  <input type="text" id="usernameInput" placeholder="Enter your in-game name...">
-  <button class="primary" id="saveLoginBtn">LOGIN</button>
- </div>
 </div>
 
 <script>
-const item=(name,price,icon,color,description)=>({name,price,icon,color,description});
 
-const fenixPlus=[
- item('Fenix+ · 1 Month','₹600','🔥','orange','Fenix+ membership for 1 month with exclusive perks.'),
- item('Fenix+ · 2 Months','₹1100','🔥','orange','Fenix+ membership for 2 months with special tag.'),
- item('Fenix+ · Permanent','₹2500','🔥','orange','Permanent Fenix+ VIP membership (Lifetime access).')
+const UPI_ID = "fenixmc@okhdfcbank";
+const STORE_NAME = "FenixMC Store";
+
+/*
+  Trial exchange rate.
+  Change this number whenever you want.
+*/
+const USD_TO_INR = 83;
+
+const products = [
+
+  {
+    id:"lord",
+    category:"rank",
+    icon:"👑",
+    name:"Lord Rank",
+    usd:15,
+    desc:"Lord rank for Lifesteal server. Ultimate kits & permissions."
+  },
+
+  {
+    id:"king",
+    category:"rank",
+    icon:"👑",
+    name:"King Rank",
+    usd:10,
+    desc:"King rank with premium permissions, kits and special benefits."
+  },
+
+  {
+    id:"knight",
+    category:"rank",
+    icon:"⚔️",
+    name:"Knight Rank",
+    usd:7,
+    desc:"Knight rank with useful permissions and exclusive perks."
+  },
+
+  {
+    id:"small",
+    category:"rank",
+    icon:"⭐",
+    name:"Small Rank",
+    usd:3,
+    desc:"Starter rank with basic premium benefits."
+  },
+
+  {
+    id:"coins100",
+    category:"coin",
+    icon:"🪙",
+    name:"100 Coins",
+    usd:1,
+    desc:"Receive 100 server coins."
+  },
+
+  {
+    id:"coins500",
+    category:"coin",
+    icon:"💰",
+    name:"500 Coins",
+    usd:4,
+    desc:"Receive 500 server coins."
+  },
+
+  {
+    id:"coins1000",
+    category:"coin",
+    icon:"💎",
+    name:"1000 Coins",
+    usd:7,
+    desc:"Receive 1000 server coins."
+  },
+
+  {
+    id:"crate",
+    category:"item",
+    icon:"🎁",
+    name:"Premium Crate",
+    usd:5,
+    desc:"Premium crate containing exclusive server rewards."
+  },
+
+  {
+    id:"key",
+    category:"item",
+    icon:"🔑",
+    name:"Crate Key",
+    usd:2,
+    desc:"One premium crate key."
+  }
+
 ];
 
-const coinsStore=[
- item('1400 Coins','₹40','🪙','gold','1400 Coins / ₹40. Use /coinshop in-game to spend coins.'),
- item('3600 Coins','₹80','🪙','gold','3600 Coins / ₹80. Use /coinshop in-game to spend coins.'),
- item('7700 Coins','₹180','🪙','gold','7700 Coins / ₹180. Use /coinshop in-game to spend coins.'),
- item('12560 Coins','₹370','🪙','gold','12560 Coins / ₹370. Use /coinshop in-game to spend coins.'),
- item('15900 Coins','₹500','🪙','gold','15900 Coins / ₹500. Use /coinshop in-game to spend coins.'),
- item('18600 Coins','₹700','🪙','gold','18600 Coins / ₹700. Use /coinshop in-game to spend coins.')
-];
+let selectedProduct = null;
 
-const survival=[
- item('Ultimate Rank','₹700','👑','orange','Ultimate rank for Survival. Full server perks included.'),
- item('Supreme Rank','₹500','🔥','orange','Supreme rank for Survival. High-tier perks included.'),
- item('Titan Rank','₹400','⚔️','red','Titan rank for Survival server.'),
- item('Knight Rank','₹300','🛡️','red','Knight rank for Survival server.')
-];
-
-const lifesteal=[
- item('Lord Rank','₹1200','👑','red','Lord rank for Lifesteal server. Ultimate kits & permissions.'),
- item('Boss Rank','₹1000','💀','red','Boss rank for Lifesteal server.'),
- item('Ace Rank','₹800','🔥','red','Ace rank for Lifesteal server.'),
- item('Draxen Rank','₹650','🏆','red','Draxen rank for Lifesteal server.'),
- item('Master Rank','₹400','⚡','red','Master rank for Lifesteal server.')
-];
-
-const groups={
- 'Fenix+':fenixPlus,
- 'Coins':coinsStore,
- 'Survival Ranks':survival,
- 'Lifesteal Ranks':lifesteal
-};
-
-let loggedUser = "";
-let selected=null;
-const $=id=>document.getElementById(id);
-
-function render(group='Featured'){
- $('title').textContent=group==='Featured'?'FEATURED PACKAGES':group.toUpperCase();
- let items=group==='Featured'?
- [lifesteal[0],survival[0],coinsStore[4],fenixPlus[0]]:
- groups[group];
- 
- $('products').innerHTML=items.map((it,i)=>`
- <button class="product ${it.color}" data-i="${i}">
-  <span class="product-icon">${it.icon}</span>
-  <span><span class="pname">${it.name}</span><br><span class="price">${it.price}</span></span>
- </button>`).join('');
- 
- [...$('products').querySelectorAll('.product')].forEach((b,i)=>b.addEventListener('click',()=>open(items[i])));
+function moneyUSD(value){
+  return "$" + value.toFixed(2);
 }
 
-function open(it){
- if(!loggedUser){
-  alert("Please click on 'Click to Login' at the top right and enter your Minecraft username first!");
-  $('loginModal').classList.add('show');
-  return;
- }
- selected=it;
- $('dIcon').textContent=it.icon;
- $('dName').textContent=it.name;
- $('dPrice').textContent=it.price;
- $('dDesc').textContent=it.description;
- $('checkoutStep').style.display='none';
- $('buy').style.display='block';$('modal').classList.add('show');
+function moneyINR(value){
+  return "₹" + value.toFixed(2);
 }
 
-function close(){ $('modal').classList.remove('show') }
+function renderProducts(list = products){
 
-render();
+  const box = document.getElementById("products");
 
-$('category').addEventListener('click',()=>{
- let open=$('menu').hidden;
- $('menu').hidden=!open;
- $('category').setAttribute('aria-expanded',String(open));$('menuSymbol').textContent=open?'×':'☰';
-});
+  box.innerHTML = "";
 
-$('menu').addEventListener('click',e=>{
- let b=e.target.closest('[data-group]');
- if(!b)return;
- render(b.dataset.group);
- $('menu').hidden=true;
- $('menuSymbol').textContent='☰';$('category').setAttribute('aria-expanded','false');
-});
+  list.forEach(product => {
 
-$('close').addEventListener('click',close);$('back').addEventListener('click',close);
-$('modal').addEventListener('click',e=>{if(e.target===$('modal'))close()});
+    box.innerHTML += `
 
-$('profileBtn').addEventListener('click',()=>$('loginModal').classList.add('show'));
-$('closeLogin').addEventListener('click',()=>$('loginModal').classList.remove('show'));
+      <article class="product">
 
-$('saveLoginBtn').addEventListener('click',()=>{
- let val = $('usernameInput').value.trim();
- if(val){
-  loggedUser = val;
-  $('profileBtn').textContent = "👤 " + loggedUser;
-  $('loginModal').classList.remove('show');
-  alert("Successfully logged in as " + loggedUser);
- } else {
-  alert("Please enter a valid username.");
- }
-});
+        <div class="icon">${product.icon}</div>
 
-$('buy').addEventListener('click',()=>{
- let c1 = $('cb1').checked;
- let c2 = $('cb2').checked;
- let c3 = $('cb3').checked;
+        <h3>${product.name}</h3>
 
- $('checkoutStep').style.display='block';$('buy').style.display='none';
+        <p>${product.desc}</p>
 
- let rawNum = selected.price.replace(/[^0-9.]/g, '');
- if(!rawNum) rawNum = "100";
+        <div class="price">
+          ${moneyUSD(product.usd)}
+        </div>
 
- let upiLink = `upi://pay?pa=fenixmc@okhdfcbank&pn=FenixMC%20Store&am=${rawNum}&cu=INR&tn=Order%20for%20${loggedUser}%20-%20${encodeURIComponent(selected.name)}`;
- $('upiPayLink').setAttribute('href', upiLink);
-});
+        <button
+          class="buy"
+          onclick="openProduct('${product.id}')"
+        >
+          Buy Now
+        </button>
 
-function triggerDiscordOrder(){
- let c1 = $('cb1').checked;
- let c2 = $('cb2').checked;
- let c3 = $('cb3').checked;
+      </article>
 
- if(!c1 || !c2 || !c3){
-  alert("You must tick all 3 agreement checkboxes before proceeding to payment!");
-  return;
- }
+    `;
 
- const webhookURL = "https://discord.com/api/webhooks/1555467923018227712/afScYh5i-xPXU1jRTt27EdV94RVLqF0FQFLoyiQIkVO1YslUW7AY-Qt9fmg7OYJuIl75"; 
+  });
 
- const payload = {
-  embeds: [{
-   title: "🛍️ NEW STORE ORDER & PAYMENT INITIATED!",
-   color: 16753165,
-   fields: [
-    { name: "👤 Minecraft Username", value: loggedUser, inline: true },
-    { name: "🎁 Purchased Item", value: selected.name, inline: true },
-    { name: "💰 Exact Price", value: selected.price, inline: true },
-    { name: "⚡ Payment Method", value: "Direct UPI App (GPay/PhonePe/Paytm)", inline: true },
-    { name: "📅 Date & Time", value: new Date().toLocaleString(), inline: false }
-   ],
-   footer: { text: "FenixMC Store Automated Logging System" }
-  ]}
- };
-
- fetch(webhookURL, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(payload)
- }).catch(err => console.log("Webhook error:", err));
-
- alert("Opening your UPI app with exact amount " + selected.price + "! Order details sent to Discord.");
 }
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){close(); $('loginModal').classList.remove('show');}});
+function filterProducts(category,button){
+
+  document
+    .querySelectorAll(".categories button")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  if(category === "all"){
+    renderProducts(products);
+  }else{
+    renderProducts(
+      products.filter(p => p.category === category)
+    );
+  }
+
+}
+
+function saveUsername(){
+
+  const input = document.getElementById("username");
+
+  const username = input.value.trim();
+
+  if(!/^[A-Za-z0-9_]{3,16}$/.test(username)){
+
+    alert(
+      "Minecraft username 3-16 characters ka hona chahiye. Sirf letters, numbers aur _ allowed hain."
+    );
+
+    return;
+  }
+
+  localStorage.setItem("fenix_username",username);
+
+  alert("Username saved: " + username);
+
+}
+
+function loadUsername(){
+
+  const username =
+    localStorage.getItem("fenix_username");
+
+  if(username){
+    document.getElementById("username").value = username;
+  }
+
+}
+
+function openProduct(id){
+
+  selectedProduct =
+    products.find(p => p.id === id);
+
+  if(!selectedProduct) return;
+
+  document.getElementById("modalIcon").textContent =
+    selectedProduct.icon;
+
+  document.getElementById("modalName").textContent =
+    selectedProduct.name;
+
+  document.getElementById("modalPrice").textContent =
+    moneyUSD(selectedProduct.usd);
+
+  document.getElementById("modalDesc").textContent =
+    selectedProduct.desc;
+
+  const inr =
+    selectedProduct.usd * USD_TO_INR;
+
+  document.getElementById("inrAmount").textContent =
+    moneyINR(inr);
+
+  document.getElementById("status").style.display = "none";
+
+  document.getElementById("terms").checked = false;
+  document.getElementById("permission").checked = false;
+  document.getElementById("account").checked = false;
+
+  document.getElementById("overlay").style.display = "block";
+
+  document.body.style.overflow = "hidden";
+
+}
+
+function closeModal(){
+
+  document.getElementById("overlay").style.display = "none";
+
+  document.body.style.overflow = "";
+
+  selectedProduct = null;
+
+}
+
+function continueToUPI(){
+
+  if(!selectedProduct){
+    alert("Product select nahi hua.");
+    return;
+  }
+
+  const username =
+    document.getElementById("username").value.trim();
+
+  if(!/^[A-Za-z0-9_]{3,16}$/.test(username)){
+
+    alert(
+      "Pehle valid Minecraft username enter karo."
+    );
+
+    document
+      .getElementById("username")
+      .focus();
+
+    return;
+  }
+
+  if(!document.getElementById("terms").checked){
+
+    alert("Terms & Conditions accept karo.");
+
+    return;
+  }
+
+  if(!document.getElementById("permission").checked){
+
+    alert("Purchase permission confirm karo.");
+
+    return;
+  }
+
+  if(!document.getElementById("account").checked){
+
+    alert("Minecraft account ownership confirm karo.");
+
+    return;
+  }
+
+  localStorage.setItem(
+    "fenix_username",
+    username
+  );
+
+  const amount =
+    (selectedProduct.usd * USD_TO_INR).toFixed(2);
+
+  const orderId =
+    "FM-" +
+    Date.now().toString(36).toUpperCase();
+
+  const note =
+    "FenixMC " +
+    selectedProduct.name +
+    " | " +
+    username +
+    " | " +
+    orderId;
+
+  /*
+    IMPORTANT:
+    URLSearchParams automatically encodes:
+    username
+    product name
+    order ID
+    etc.
+  */
+
+  const params = new URLSearchParams();
+
+  params.set("pa", UPI_ID);
+  params.set("pn", STORE_NAME);
+  params.set("am", amount);
+  params.set("cu", "INR");
+  params.set("tn", note);
+
+  const upiURL =
+    "upi://pay?" + params.toString();
+
+  const status =
+    document.getElementById("status");
+
+  status.textContent =
+    "Order " +
+    orderId +
+    " created. Opening UPI...";
+
+  status.style.display = "block";
+
+  /*
+    Direct user action:
+    no setTimeout
+    no target=_blank
+    no iframe
+  */
+
+  window.location.href = upiURL;
+
+}
+
+document
+  .getElementById("overlay")
+  .addEventListener("click",function(e){
+
+    if(e.target === this){
+      closeModal();
+    }
+
+  });
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key === "Escape"){
+    closeModal();
+  }
+
+});
+
+renderProducts();
+
+loadUsername();
+
 </script>
+
 </body>
 </html>
