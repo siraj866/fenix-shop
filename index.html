@@ -91,29 +91,18 @@ button:disabled{cursor:not-allowed;opacity:.6}
 <body>
 
 <header class="hero">
- <div class="topbar">
-  <button id="profileBtn" type="button">👤 Enter Minecraft Username</button>
- </div>
-
+ <div class="topbar"><button id="profileBtn" type="button">👤 Enter Minecraft Username</button></div>
  <div class="logo">
   <div class="mascot" aria-hidden="true">🐉</div>
   <div class="brand">FenixMC</div>
  </div>
-
  <div class="stats" aria-label="Server statistics">
-  <div class="stat">
-   <span class="pill">3,768</span>
-   <span class="social" aria-hidden="true">☏</span>
-  </div>
-  <div class="stat">
-   <span class="pill">557</span>
-   <span class="social" aria-hidden="true">♨</span>
-  </div>
+  <div class="stat"><span class="pill">3,768</span><span class="social" aria-hidden="true">☏</span></div>
+  <div class="stat"><span class="pill">557</span><span class="social" aria-hidden="true">♨</span></div>
  </div>
 </header>
 
 <main class="wrap">
-
  <section class="panel">
   <button class="category" id="category" type="button" aria-expanded="false" aria-controls="menu">
    <span class="symbol" id="menuSymbol" aria-hidden="true">☰</span>
@@ -121,25 +110,10 @@ button:disabled{cursor:not-allowed;opacity:.6}
   </button>
 
   <div class="menu" id="menu" hidden>
-   <button class="menu-item" data-group="Fenix+" type="button">
-    <span class="menu-icon" aria-hidden="true">🔥</span>
-    <span>Fenix+ Membership</span>
-   </button>
-
-   <button class="menu-item" data-group="Coins" type="button">
-    <span class="menu-icon" aria-hidden="true">🪙</span>
-    <span>Coins Store</span>
-   </button>
-
-   <button class="menu-item" data-group="Lifesteal Ranks" type="button">
-    <span class="menu-icon" aria-hidden="true">⚔️</span>
-    <span>Lifesteal Ranks</span>
-   </button>
-
-   <button class="menu-item" data-group="Survival Ranks" type="button">
-    <span class="menu-icon" aria-hidden="true">🛡️</span>
-    <span>Survival Ranks</span>
-   </button>
+   <button class="menu-item" data-group="Fenix+" type="button"><span class="menu-icon" aria-hidden="true">🔥</span><span>Fenix+ Membership</span></button>
+   <button class="menu-item" data-group="Coins" type="button"><span class="menu-icon" aria-hidden="true">🪙</span><span>Coins Store</span></button>
+   <button class="menu-item" data-group="Lifesteal Ranks" type="button"><span class="menu-icon" aria-hidden="true">⚔️</span><span>Lifesteal Ranks</span></button>
+   <button class="menu-item" data-group="Survival Ranks" type="button"><span class="menu-icon" aria-hidden="true">🛡️</span><span>Survival Ranks</span></button>
   </div>
  </section>
 
@@ -148,52 +122,27 @@ button:disabled{cursor:not-allowed;opacity:.6}
   <div class="products" id="products"></div>
  </section>
 
- <div class="notice">
-  FenixMC Store · Secure Order Logging · Direct UPI
- </div>
-
+ <div class="notice">FenixMC Store · Secure Order Logging · Direct UPI</div>
 </main>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dName">
  <div class="dialog">
-
   <button class="close" id="close" type="button" aria-label="Close">×</button>
-
   <div id="dIcon" style="font-size:50px" aria-hidden="true">🎁</div>
-
   <h2 id="dName">Package</h2>
-
   <div id="dPrice" style="font-weight:bold;font-size:20px;color:var(--gold)"></div>
-
   <p id="dDesc" style="margin-top:6px;">Package details.</p>
 
   <div id="checkoutStep" style="display:none;">
-
    <div id="checkoutStatus" class="status" role="status"></div>
 
    <div class="checkbox-container">
-
-    <label>
-     <input type="checkbox" id="cb1">
-     I agree to the store Terms &amp; Conditions.
-    </label>
-
-    <label>
-     <input type="checkbox" id="cb2">
-     I confirm I have the required permission to make this purchase.
-    </label>
-
-    <label>
-     <input type="checkbox" id="cb3">
-     I confirm that the Minecraft account belongs to me.
-    </label>
-
+    <label><input type="checkbox" id="cb1"> I agree to the store Terms &amp; Conditions.</label>
+    <label><input type="checkbox" id="cb2"> I confirm I have the required permission to make this purchase.</label>
+    <label><input type="checkbox" id="cb3"> I confirm that the Minecraft account belongs to me.</label>
    </div>
 
-   <h4 style="color:var(--orange);margin-bottom:6px;font-size:14px;">
-    Payment
-   </h4>
-
+   <h4 style="color:var(--orange);margin-bottom:6px;font-size:14px;">Payment</h4>
    <div id="upiAmount" style="color:#ddd;font-size:14px;margin-bottom:8px;"></div>
 
    <button id="upiPayButton" class="pay-btn" type="button">
@@ -201,30 +150,18 @@ button:disabled{cursor:not-allowed;opacity:.6}
    </button>
 
    <div class="policy">
-    Payment opens your installed UPI app. The store records an order as
-    <b>payment initiated</b>; payment is not considered verified until confirmed by the store.
+    Payment opens your installed UPI app. The store records an order as <b>payment initiated</b>; payment is not considered verified until confirmed by the store.
    </div>
-
   </div>
 
-  <button class="primary" id="buy" type="button">
-   Continue to checkout
-  </button>
-
-  <button class="secondary" id="back" type="button">
-   Back to store
-  </button>
-
+  <button class="primary" id="buy" type="button">Continue to checkout</button>
+  <button class="secondary" id="back" type="button">Back to store</button>
  </div>
 </div>
 
 <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-
  <div class="dialog">
-
-  <button class="close" id="closeLogin" type="button" aria-label="Close">
-   ×
-  </button>
+  <button class="close" id="closeLogin" type="button" aria-label="Close">×</button>
 
   <h2 id="loginTitle">Minecraft Username</h2>
 
@@ -233,7 +170,6 @@ button:disabled{cursor:not-allowed;opacity:.6}
   </p>
 
   <form id="loginForm">
-
    <input
     type="text"
     id="usernameInput"
@@ -245,12 +181,8 @@ button:disabled{cursor:not-allowed;opacity:.6}
 
    <div id="loginStatus" class="status" role="alert"></div>
 
-   <button class="primary" type="submit">
-    SAVE USERNAME
-   </button>
-
+   <button class="primary" type="submit">SAVE USERNAME</button>
   </form>
-
  </div>
 </div>
 
@@ -261,7 +193,6 @@ button:disabled{cursor:not-allowed;opacity:.6}
 const PRODUCTS = {
 
  'Fenix+': [
-
   {
    id:'fenix_plus_1m',
    name:'Fenix+ · 1 Month',
@@ -270,7 +201,6 @@ const PRODUCTS = {
    color:'orange',
    description:'Fenix+ membership for 1 month with exclusive perks.'
   },
-
   {
    id:'fenix_plus_2m',
    name:'Fenix+ · 2 Months',
@@ -279,7 +209,6 @@ const PRODUCTS = {
    color:'orange',
    description:'Fenix+ membership for 2 months with special tag.'
   },
-
   {
    id:'fenix_plus_lifetime',
    name:'Fenix+ · Permanent',
@@ -288,11 +217,9 @@ const PRODUCTS = {
    color:'orange',
    description:'Permanent Fenix+ VIP membership.'
   }
-
  ],
 
  'Coins': [
-
   {
    id:'coins_1400',
    name:'1400 Coins',
@@ -301,7 +228,6 @@ const PRODUCTS = {
    color:'gold',
    description:'1400 Coins. Use /coinshop in-game to spend coins.'
   },
-
   {
    id:'coins_3600',
    name:'3600 Coins',
@@ -310,7 +236,6 @@ const PRODUCTS = {
    color:'gold',
    description:'3600 Coins. Use /coinshop in-game to spend coins.'
   },
-
   {
    id:'coins_7700',
    name:'7700 Coins',
@@ -319,7 +244,6 @@ const PRODUCTS = {
    color:'gold',
    description:'7700 Coins. Use /coinshop in-game to spend coins.'
   },
-
   {
    id:'coins_12560',
    name:'12560 Coins',
@@ -328,7 +252,6 @@ const PRODUCTS = {
    color:'gold',
    description:'12560 Coins. Use /coinshop in-game to spend coins.'
   },
-
   {
    id:'coins_15900',
    name:'15900 Coins',
@@ -337,7 +260,6 @@ const PRODUCTS = {
    color:'gold',
    description:'15900 Coins. Use /coinshop in-game to spend coins.'
   },
-
   {
    id:'coins_18600',
    name:'18600 Coins',
@@ -346,11 +268,9 @@ const PRODUCTS = {
    color:'gold',
    description:'18600 Coins. Use /coinshop in-game to spend coins.'
   }
-
  ],
 
  'Survival Ranks': [
-
   {
    id:'survival_ultimate',
    name:'Ultimate Rank',
@@ -359,7 +279,6 @@ const PRODUCTS = {
    color:'orange',
    description:'Ultimate rank for Survival. Full server perks included.'
   },
-
   {
    id:'survival_supreme',
    name:'Supreme Rank',
@@ -368,7 +287,6 @@ const PRODUCTS = {
    color:'orange',
    description:'Supreme rank for Survival. High-tier perks included.'
   },
-
   {
    id:'survival_titan',
    name:'Titan Rank',
@@ -377,7 +295,6 @@ const PRODUCTS = {
    color:'red',
    description:'Titan rank for Survival server.'
   },
-
   {
    id:'survival_knight',
    name:'Knight Rank',
@@ -386,11 +303,9 @@ const PRODUCTS = {
    color:'red',
    description:'Knight rank for Survival server.'
   }
-
  ],
 
  'Lifesteal Ranks': [
-
   {
    id:'lifesteal_lord',
    name:'Lord Rank',
@@ -399,7 +314,6 @@ const PRODUCTS = {
    color:'red',
    description:'Lord rank for Lifesteal server. Ultimate kits & permissions.'
   },
-
   {
    id:'lifesteal_boss',
    name:'Boss Rank',
@@ -408,7 +322,6 @@ const PRODUCTS = {
    color:'red',
    description:'Boss rank for Lifesteal server.'
   },
-
   {
    id:'lifesteal_ace',
    name:'Ace Rank',
@@ -417,7 +330,6 @@ const PRODUCTS = {
    color:'red',
    description:'Ace rank for Lifesteal server.'
   },
-
   {
    id:'lifesteal_draxen',
    name:'Draxen Rank',
@@ -426,7 +338,6 @@ const PRODUCTS = {
    color:'red',
    description:'Draxen rank for Lifesteal server.'
   },
-
   {
    id:'lifesteal_master',
    name:'Master Rank',
@@ -435,18 +346,15 @@ const PRODUCTS = {
    color:'red',
    description:'Master rank for Lifesteal server.'
   }
-
  ]
 
 };
 
 const FEATURED = [
-
  PRODUCTS['Lifesteal Ranks'][0],
  PRODUCTS['Survival Ranks'][0],
  PRODUCTS['Coins'][4],
  PRODUCTS['Fenix+'][0]
-
 ];
 
 let loggedUser = localStorage.getItem('fenixmc_username') || '';
@@ -459,15 +367,15 @@ const $ = id => document.getElementById(id);
 function showToast(message){
 
  $('toast').textContent = message;
-
  $('toast').classList.add('show');
 
  clearTimeout(showToast.timer);
 
- showToast.timer = setTimeout(
-  () => $('toast').classList.remove('show'),
-  3000
- );
+ showToast.timer =
+  setTimeout(
+   () => $('toast').classList.remove('show'),
+   3000
+  );
 
 }
 
@@ -475,7 +383,8 @@ function setStatus(el,message,type='error'){
 
  el.textContent = message;
 
- el.className = 'status show ' + type;
+ el.className =
+  'status show ' + type;
 
 }
 
@@ -503,34 +412,35 @@ function render(group='Featured'){
    ? FEATURED
    : PRODUCTS[group];
 
- $('products').innerHTML = items.map((it) => `
+ $('products').innerHTML =
+  items.map((it) => `
 
-  <button
-   class="product ${it.color}"
-   type="button"
-   data-id="${it.id}"
-  >
+   <button
+    class="product ${it.color}"
+    type="button"
+    data-id="${it.id}"
+   >
 
-   <span
-    class="product-icon"
-    aria-hidden="true"
-   >${it.icon}</span>
+    <span
+     class="product-icon"
+     aria-hidden="true"
+    >${it.icon}</span>
 
-   <span class="product-info">
+    <span class="product-info">
 
-    <span class="pname">
-     ${it.name}
+     <span class="pname">
+      ${it.name}
+     </span>
+
+     <span class="price">
+      ${moneyUSD(it.priceUSD)}
+     </span>
+
     </span>
 
-    <span class="price">
-     ${moneyUSD(it.priceUSD)}
-    </span>
+   </button>
 
-   </span>
-
-  </button>
-
- `).join('');
+  `).join('');
 
  [
   ...$('products').querySelectorAll('.product')
@@ -538,9 +448,11 @@ function render(group='Featured'){
 
   btn.addEventListener('click', () => {
 
-   const item = findProduct(btn.dataset.id);
+   const item =
+    findProduct(btn.dataset.id);
 
-   if(item) openProduct(item);
+   if(item)
+    openProduct(item);
 
   });
 
@@ -555,7 +467,8 @@ function findProduct(id){
   const found =
    list.find(item => item.id === id);
 
-  if(found) return found;
+  if(found)
+   return found;
 
  }
 
@@ -567,7 +480,8 @@ function openProduct(item){
 
  if(!loggedUser){
 
-  lastFocused = document.activeElement;
+  lastFocused =
+   document.activeElement;
 
   $('loginModal').classList.add('show');
 
@@ -582,9 +496,11 @@ function openProduct(item){
 
  selected = item;
 
- $('dIcon').textContent = item.icon;
+ $('dIcon').textContent =
+  item.icon;
 
- $('dName').textContent = item.name;
+ $('dName').textContent =
+  item.name;
 
  $('dPrice').textContent =
   moneyUSD(item.priceUSD);
@@ -592,19 +508,24 @@ function openProduct(item){
  $('dDesc').textContent =
   item.description;
 
- $('checkoutStep').style.display = 'none';
+ $('checkoutStep').style.display =
+  'none';
 
- $('buy').style.display = 'block';
+ $('buy').style.display =
+  'block';
 
- $('checkoutStatus').className = 'status';
+ $('checkoutStatus').className =
+  'status';
 
- $('checkoutStatus').textContent = '';
+ $('checkoutStatus').textContent =
+  '';
 
  $('cb1').checked = false;
  $('cb2').checked = false;
  $('cb3').checked = false;
 
- $('upiAmount').textContent = '';
+ $('upiAmount').textContent =
+  '';
 
  $('modal').classList.add('show');
 
@@ -660,9 +581,11 @@ function updateLoginButton(){
 
 async function createOrder(){
 
- if(!selected || !loggedUser) return;
+ if(!selected || !loggedUser)
+  return;
 
- const status = $('checkoutStatus');
+ const status =
+  $('checkoutStatus');
 
  if(
   !$('cb1').checked ||
@@ -680,7 +603,8 @@ async function createOrder(){
 
  }
 
- $('upiPayButton').disabled = true;
+ $('upiPayButton').disabled =
+  true;
 
  setStatus(
   status,
@@ -696,24 +620,31 @@ async function createOrder(){
     method:'POST',
 
     headers:{
-     'Content-Type':'application/json'
+     'Content-Type':
+      'application/json'
     },
 
-    credentials:'same-origin',
+    credentials:
+     'same-origin',
 
     body:JSON.stringify({
 
-     productId:selected.id,
+     productId:
+      selected.id,
 
-     username:loggedUser,
+     username:
+      loggedUser,
 
      agreements:{
 
-      terms:$('cb1').checked,
+      terms:
+       $('cb1').checked,
 
-      permission:$('cb2').checked,
+      permission:
+       $('cb2').checked,
 
-      ownership:$('cb3').checked
+      ownership:
+       $('cb3').checked
 
      },
 
@@ -737,7 +668,8 @@ async function createOrder(){
 
   }
 
-  currentOrder = data;
+  currentOrder =
+   data;
 
   $('upiAmount').textContent =
    `UPI amount: ₹${Number(
@@ -750,36 +682,8 @@ async function createOrder(){
    'ok'
   );
 
-  const upi =
-   new URL('upi://pay');
-
-  upi.searchParams.set(
-   'pa',
-   data.upiId
-  );
-
-  upi.searchParams.set(
-   'pn',
-   'FenixMC Store'
-  );
-
-  upi.searchParams.set(
-   'am',
-   Number(data.amountINR).toFixed(2)
-  );
-
-  upi.searchParams.set(
-   'cu',
-   'INR'
-  );
-
-  upi.searchParams.set(
-   'tn',
-   `FenixMC ${data.orderId}`
-  );
-
   window.location.href =
-   upi.toString();
+   data.paymentUrl;
 
  }catch(err){
 
@@ -792,7 +696,8 @@ async function createOrder(){
 
  }finally{
 
-  $('upiPayButton').disabled = false;
+  $('upiPayButton').disabled =
+   false;
 
  }
 
@@ -826,13 +731,16 @@ $('menu').addEventListener(
   const button =
    e.target.closest('[data-group]');
 
-  if(!button) return;
+  if(!button)
+   return;
 
   render(button.dataset.group);
 
-  $('menu').hidden = true;
+  $('menu').hidden =
+   true;
 
-  $('menuSymbol').textContent = '☰';
+  $('menuSymbol').textContent =
+   '☰';
 
   $('category').setAttribute(
    'aria-expanded',
@@ -849,7 +757,9 @@ $('profileBtn').addEventListener(
   lastFocused =
    document.activeElement;
 
-  $('loginModal').classList.add('show');
+  $('loginModal').classList.add(
+   'show'
+  );
 
   setTimeout(
    () => $('usernameInput').focus(),
@@ -878,7 +788,9 @@ $('modal').addEventListener(
  'click',
  e => {
 
-  if(e.target === $('modal'))
+  if(
+   e.target === $('modal')
+  )
    closeProductModal();
 
  }
@@ -888,7 +800,9 @@ $('loginModal').addEventListener(
  'click',
  e => {
 
-  if(e.target === $('loginModal'))
+  if(
+   e.target === $('loginModal')
+  )
    closeLoginModal();
 
  }
@@ -901,4 +815,35 @@ $('loginForm').addEventListener(
   e.preventDefault();
 
   const status =
-   $('login
+   $('loginStatus');
+
+  const value =
+   $('usernameInput').value.trim();
+
+  if(
+   !validMinecraftUsername(value)
+  ){
+
+   setStatus(
+    status,
+    'Minecraft username must be 3–16 characters and contain only letters, numbers or _.',
+    'error'
+   );
+
+   return;
+
+  }
+
+  loggedUser =
+   value;
+
+  localStorage.setItem(
+   'fenixmc_username',
+   loggedUser
+  );
+
+  updateLoginButton();
+
+  $('loginStatus').className =
+   'status';
+ 
